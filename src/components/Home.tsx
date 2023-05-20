@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, MouseEvent } from 'react';
 import PopularAnime from './anime-sections/PopularAnime';
 import UpcomingAnime from './anime-sections/UpcomingAnime';
-import TopAnime from './anime-sections/TopAnime';
 import FilterComponent from './FilterComponent';
 import { Icon } from '@iconify/react';
 

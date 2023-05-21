@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AnimeDataModel } from '../interface/AnimeDataModel';
 
-const useFetchPopular = (contentLimit: number, page: number) => {
-   const [fetchedPopularData, setFetchedPopularData] = useState<
+const useFetchUpcoming = (contentLimit: number, page: number) => {
+   const [fetchedUpcomingData, setFetchedUpcomingData] = useState<
       AnimeDataModel[]
    >([]);
-   const [loadingPopular, setLoadingPopular] = useState<boolean>(false);
-   const [errorPopular, setErrorPopular] = useState<string>('');
+   const [loadingUpcoming, setLoadingUpcoming] = useState<boolean>(false);
+   const [errorUpcoming, setErrorUpcoming] = useState<string>('');
 
    useEffect(() => {
-      const fetchPopularAnimeData = async () => {
-         setErrorPopular('');
+      const fetchUpcomingData = async () => {
+         setErrorUpcoming('');
          try {
-            setLoadingPopular(true);
-            const baseUrl = `https://api.jikan.moe/v4/seasons/now?limit=${contentLimit}&page=${page}`;
-            const listPopularAnime = await axios.get(baseUrl);
-            const { data, pagination } = listPopularAnime.data;
+            setLoadingUpcoming(true);
+            const baseUrl = `https://api.jikan.moe/v4/seasons/upcoming?limit=${contentLimit}&page=${page}`;
+            const listUpcomingAnime = await axios.get(baseUrl);
+            const { data, pagination } = listUpcomingAnime.data;
             const animeDataList = await Promise.all(
                data.map(async (anime: AnimeDataModel) => {
                   const animeData: AnimeDataModel = {
@@ -36,18 +36,18 @@ const useFetchPopular = (contentLimit: number, page: number) => {
                })
             );
             console.log('DATAAA: ', animeDataList);
-            setFetchedPopularData([...fetchedPopularData, ...animeDataList]);
+            setFetchedUpcomingData([...fetchedUpcomingData, ...animeDataList]);
          } catch (fetchError: any) {
             console.group(fetchError);
-            setErrorPopular('No Results');
+            setErrorUpcoming('No Results');
          } finally {
-            setLoadingPopular(false);
+            setLoadingUpcoming(false);
          }
       };
-      fetchPopularAnimeData();
-   }, [contentLimit]);
+      fetchUpcomingData();
+   }, [contentLimit, page]);
 
-   return { fetchedPopularData, loadingPopular, errorPopular };
+   return { fetchedUpcomingData, loadingUpcoming, errorUpcoming };
 };
 
-export default useFetchPopular;
+export default useFetchUpcoming;

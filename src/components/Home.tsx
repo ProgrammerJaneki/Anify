@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect, MouseEvent } from 'react';
-import PopularAnime from './anime-sections/PopularAnime';
-import UpcomingAnime from './anime-sections/UpcomingAnime';
-import FilterComponent from './FilterComponent';
-import { Icon } from '@iconify/react';
+import AnimeList from './anime-sections/AnimeList';
+import useFetchPopular from '../services/useFetchPopular';
+import useFetchUpcoming from '../services/useFetchUpcoming';
+import useFetchTop from '../services/useFetchTop';
+import { AnimeDataModel } from '../interface/AnimeDataModel';
+import { NavLink } from 'react-router-dom';
 
 interface FilterModel {
    value: string | number;
@@ -14,77 +16,65 @@ interface FilterModel {
 }
 
 const Home = () => {
-   const [filteredGenre, setFilteredGenre] = useState<string>('Any');
-   const [filteredYear, setFilteredYear] = useState<string>('Any');
-   const [filteredStatus, setFilteredStatus] = useState<string>('Any');
-   const [dataLimit, setDataLImit] = useState<number>(4);
+   const [contentLimit, setContentLimit] = useState<number>(8);
    const [page, setPage] = useState<number>(1);
+   const [popularAnimeData, setPopularAnimeData] = useState<AnimeDataModel[]>(
+      []
+   );
+   const [upcomingAnimeData, setUpcomingAnimeData] = useState<AnimeDataModel[]>(
+      []
+   );
+   const [topAnimeData, setTopAnimeData] = useState<AnimeDataModel[]>([]);
+   const { fetchedPopularData, loadingPopular, errorPopular } = useFetchPopular(
+      4,
+      1
+   );
+   const { fetchedUpcomingData, loadingUpcoming, errorUpcoming } =
+      useFetchUpcoming(4, 1);
+   const { fetchedTopData, loadingTop, errorTop } = useFetchTop(4, 1);
 
-   const [genreOptions, setGenreOptions] = useState<string[]>([
-      'Action',
-      'Adventure',
-      'Comedy',
-   ]);
-   const [yearOptions, setYearOptions] = useState<string[]>([
-      '2023',
-      '2022',
-      '2021',
-   ]);
-   const [statusOptions, setStatusOptions] = useState<string[]>([
-      'airing',
-      'complete',
-      'upcoming',
-   ]);
-   const [genreActive, setGenreActive] = useState<boolean>(false);
-   const [yearActive, setYearActive] = useState<boolean>(false);
-   const [statusActive, setStatusActive] = useState<boolean>(false);
+   useEffect(() => {
+      setPopularAnimeData(fetchedPopularData);
+      setUpcomingAnimeData(fetchedUpcomingData);
+      setTopAnimeData(fetchedTopData);
+   }, [fetchedPopularData, fetchedUpcomingData, fetchedTopData]);
 
    return (
       <div className="grid text-[#c9d7d7]">
-         {/* Filter Section */}
-         <div className="flex items-center gap-x-4 text-sm ">
-            {/* Search */}
-            <div className="flex flex-col text-[#676c75] font-semibold gap-y-2 w-full">
-               <h1 className="text-[#c9d7d7]">Search</h1>
-               <div className="flex items-center gap-x-2 bg-[#14181d]  py-2 px-4 rounded-md w-full">
-                  <Icon icon="iconamoon:search" width="20" height="20" />
-                  <input
-                     className="bg-transparent focus:outline-none w-full"
-                     type="text"
-                     placeholder=""
-                  />
+         <div className="grid gap-y-12 text-sm py-0">
+            <div className="space-y-4 w-full">
+               <div className="font-bold flex justify-between items-center w-full">
+                  <h1 className="">POPULAR THIS SEASON</h1>
+                  <NavLink
+                     to="/anime/popular"
+                     className="text-xs text-[#676c75]"
+                  >
+                     View All
+                  </NavLink>
                </div>
+               <AnimeList animeListData={popularAnimeData} />
             </div>
-            <FilterComponent
-               filterName="Genre"
-               value={filteredGenre}
-               setValue={setFilteredGenre}
-               dropDown={genreActive}
-               setActiveDropDown={setGenreActive}
-               valueOptions={genreOptions}
-            />
-            <FilterComponent
-               filterName="Year"
-               value={filteredYear}
-               setValue={setFilteredYear}
-               dropDown={yearActive}
-               setActiveDropDown={setYearActive}
-               valueOptions={yearOptions}
-            />
-            <FilterComponent
-               filterName="Status"
-               value={filteredStatus}
-               setValue={setFilteredStatus}
-               dropDown={statusActive}
-               setActiveDropDown={setStatusActive}
-               valueOptions={statusOptions}
-            />
-         </div>
-         {/* Container */}
-         <div className="grid gap-y-12 text-sm py-8">
-            {/* Popular this Season Component */}
-            <PopularAnime dataLimit={dataLimit} page={page} />
-            <UpcomingAnime />
+            <div className="space-y-4 w-full">
+               <div className="font-bold flex justify-between items-center w-full">
+                  <h1 className="">UPCOMING SEASON</h1>
+                  <NavLink
+                     to="/anime/upcoming"
+                     className="text-xs text-[#676c75]"
+                  >
+                     View All
+                  </NavLink>
+               </div>
+               <AnimeList animeListData={upcomingAnimeData} />
+            </div>
+            <div className="space-y-4 w-full">
+               <div className="font-bold flex justify-between items-center w-full">
+                  <h1 className="">TOP ANIME</h1>
+                  <NavLink to="/anime/top" className="text-xs text-[#676c75]">
+                     View All
+                  </NavLink>
+               </div>
+               <AnimeList animeListData={topAnimeData} />
+            </div>
          </div>
       </div>
    );

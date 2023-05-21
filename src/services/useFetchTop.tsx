@@ -2,19 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AnimeDataModel } from '../interface/AnimeDataModel';
 
-const useFetchPopular = (contentLimit: number, page: number) => {
-   const [fetchedPopularData, setFetchedPopularData] = useState<
-      AnimeDataModel[]
-   >([]);
-   const [loadingPopular, setLoadingPopular] = useState<boolean>(false);
-   const [errorPopular, setErrorPopular] = useState<string>('');
+const useFetchTop = (contentLimit: number, page: number) => {
+   const [fetchedTopData, setFetchedTopData] = useState<AnimeDataModel[]>([]);
+   const [loadingTop, setLoadingTop] = useState<boolean>(false);
+   const [errorTop, setErrorTop] = useState<string>('');
 
    useEffect(() => {
-      const fetchPopularAnimeData = async () => {
-         setErrorPopular('');
+      const fetchTopAnimeData = async () => {
+         setErrorTop('');
          try {
-            setLoadingPopular(true);
-            const baseUrl = `https://api.jikan.moe/v4/seasons/now?limit=${contentLimit}&page=${page}`;
+            setLoadingTop(true);
+            const baseUrl = `https://api.jikan.moe/v4/top/anime?limit=${contentLimit}&page=${page}`;
             const listPopularAnime = await axios.get(baseUrl);
             const { data, pagination } = listPopularAnime.data;
             const animeDataList = await Promise.all(
@@ -36,18 +34,18 @@ const useFetchPopular = (contentLimit: number, page: number) => {
                })
             );
             console.log('DATAAA: ', animeDataList);
-            setFetchedPopularData([...fetchedPopularData, ...animeDataList]);
+            setFetchedTopData([...fetchedTopData, ...animeDataList]);
          } catch (fetchError: any) {
             console.group(fetchError);
-            setErrorPopular('No Results');
+            setErrorTop('No Results');
          } finally {
-            setLoadingPopular(false);
+            setLoadingTop(false);
          }
       };
-      fetchPopularAnimeData();
+      fetchTopAnimeData();
    }, [contentLimit]);
 
-   return { fetchedPopularData, loadingPopular, errorPopular };
+   return { fetchedTopData, loadingTop, errorTop };
 };
 
-export default useFetchPopular;
+export default useFetchTop;

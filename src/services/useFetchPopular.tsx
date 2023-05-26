@@ -8,6 +8,9 @@ const useFetchPopular = (contentLimit: number, page: number) => {
    >([]);
    const [loadingPopular, setLoadingPopular] = useState<boolean>(false);
    const [errorPopular, setErrorPopular] = useState<string>('');
+   const [hasMore, setHasMore] = useState<boolean>(true);
+
+   // I'll pass the value of the pageCount here
 
    useEffect(() => {
       const fetchPopularAnimeData = async () => {
@@ -17,6 +20,8 @@ const useFetchPopular = (contentLimit: number, page: number) => {
             const baseUrl = `https://api.jikan.moe/v4/seasons/now?limit=${contentLimit}&page=${page}`;
             const listPopularAnime = await axios.get(baseUrl);
             const { data, pagination } = listPopularAnime.data;
+            setHasMore(pagination.has_next_page);
+            console.log(pagination.has_next_page);
             const animeDataList = await Promise.all(
                data.map(async (anime: AnimeDataModel) => {
                   const animeData: AnimeDataModel = {
@@ -35,19 +40,23 @@ const useFetchPopular = (contentLimit: number, page: number) => {
                   return animeData;
                })
             );
-            console.log('DATAAA: ', animeDataList);
-            setFetchedPopularData([...fetchedPopularData, ...animeDataList]);
+            setTimeout(() => {
+               setFetchedPopularData([...fetchedPopularData, ...animeDataList]);
+               setLoadingPopular(false);
+            }, 500);
          } catch (fetchError: any) {
             console.group(fetchError);
             setErrorPopular('No Results');
          } finally {
-            setLoadingPopular(false);
+            // setTimeout(() => {
+            //    setLoadingPopular(false);
+            // }, 2000);
          }
       };
       fetchPopularAnimeData();
-   }, [contentLimit]);
+   }, [contentLimit, page]);
 
-   return { fetchedPopularData, loadingPopular, errorPopular };
+   return { fetchedPopularData, loadingPopular, errorPopular, hasMore };
 };
 
 export default useFetchPopular;

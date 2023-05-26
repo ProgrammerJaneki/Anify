@@ -35,7 +35,6 @@ const useFetchUpcoming = (contentLimit: number, page: number) => {
                   return animeData;
                })
             );
-            console.log('DATAAA: ', animeDataList);
             setFetchedUpcomingData([...fetchedUpcomingData, ...animeDataList]);
          } catch (fetchError: any) {
             console.group(fetchError);

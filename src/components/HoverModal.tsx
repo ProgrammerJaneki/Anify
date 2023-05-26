@@ -10,23 +10,31 @@ const HoverModal = ({ animeModalData }: HoverModalModel) => {
    return (
       <div className="z-10 absolute left-full translate-x-4 top-1 bg-[#171d24] text-[#acbfd0] py-6 px-6 rounded-md w-[18.5rem]">
          <div className="flex items-center justify-between">
-            <h1 className="capitalize">
-               {animeModalData.season} {animeModalData.year}
-            </h1>
-            <div className="inline-flex items-center gap-x-1">
-               <Icon
-                  icon="ph:star-fill"
-                  color="#ffc107"
-                  width="14"
-                  height="14"
-               />
-               <h1>{animeModalData.score}</h1>
-            </div>
+            {animeModalData.season || animeModalData.year ? (
+               <h1 className="capitalize">
+                  {animeModalData.season} {animeModalData.year}
+               </h1>
+            ) : (
+               'Unknown'
+            )}
+            {animeModalData.score ? (
+               <div className="inline-flex items-center gap-x-1">
+                  <Icon
+                     icon="ph:star-fill"
+                     color="#ffc107"
+                     width="14"
+                     height="14"
+                  />
+                  <h1>{animeModalData.score}</h1>
+               </div>
+            ) : (
+               ''
+            )}
          </div>
-         <div className="text-xs py-3">
+         <div className="text-xs py-3 space-y-1">
             {animeModalData.studios.map((studio) => {
                return (
-                  <h1 className="capitalize" key={studio.name}>
+                  <h1 className="capitalize text-[#59dfd6]" key={studio.name}>
                      {studio.name}
                   </h1>
                );

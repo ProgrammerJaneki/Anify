@@ -1,26 +1,37 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import FilterComponent from './FilterComponent';
+import useAnimeGenre from '../services/useAnimeGenre';
+import useAnimeYear from '../services/useAnimeYear';
+import useAnimeStatus from '../services/useAnimeStatus';
+import { FilterModel } from '../interface/FilterModel';
 
 interface SearchFillterModel {
-   filteredGenre: string;
-   filteredYear: string;
-   filteredStatus: string;
-   setFilteredGenre: React.Dispatch<React.SetStateAction<string>>;
-   setFilteredYear: React.Dispatch<React.SetStateAction<string>>;
-   setFilteredStatus: React.Dispatch<React.SetStateAction<string>>;
+   filteredItems: FilterModel[];
+   setFilteredItems: React.Dispatch<React.SetStateAction<FilterModel[]>>;
+   handleSetSearchQuery: (event: ChangeEvent<HTMLInputElement>) => void;
+   searchQuery: string;
+   filteredGenre: FilterModel[];
+   filteredYear: FilterModel[];
+   filteredStatus: FilterModel[];
+   setFilteredGenre: React.Dispatch<React.SetStateAction<FilterModel[]>>;
+   setFilteredYear: React.Dispatch<React.SetStateAction<FilterModel[]>>;
+   setFilteredStatus: React.Dispatch<React.SetStateAction<FilterModel[]>>;
    genreActive: boolean;
    yearActive: boolean;
    statusActive: boolean;
    setGenreActive: React.Dispatch<React.SetStateAction<boolean>>;
    setYearActive: React.Dispatch<React.SetStateAction<boolean>>;
    setStatusActive: React.Dispatch<React.SetStateAction<boolean>>;
-   genreOptions: string[];
-   yearOptions: string[];
-   statusOptions: string[];
+   handleRemoveFilter: (value: string) => void;
+   handleClearFilteredItems: (filterName: string) => void;
 }
 
 const SearchFilter = ({
+   filteredItems,
+   setFilteredItems,
+   handleSetSearchQuery,
+   searchQuery,
    filteredGenre,
    filteredYear,
    filteredStatus,
@@ -33,10 +44,18 @@ const SearchFilter = ({
    setGenreActive,
    setYearActive,
    setStatusActive,
-   genreOptions,
-   yearOptions,
-   statusOptions,
+   handleRemoveFilter,
+   handleClearFilteredItems,
 }: SearchFillterModel) => {
+   const handleClearGenre = () => {
+      handleClearFilteredItems('genre');
+   };
+   const handleClearYear = () => {
+      handleClearFilteredItems('year');
+   };
+   const handleClearStatus = () => {
+      handleClearFilteredItems('status');
+   };
    return (
       <div className="flex items-center gap-x-4 text-sm ">
          {/* Search */}
@@ -48,32 +67,46 @@ const SearchFilter = ({
                   className="bg-transparent focus:outline-none w-full"
                   type="text"
                   placeholder=""
+                  onChange={handleSetSearchQuery}
+                  value={searchQuery}
                />
             </div>
          </div>
          <FilterComponent
+            filteredItems={filteredItems}
+            setFilteredItems={setFilteredItems}
             filterName="Genre"
-            value={filteredGenre}
-            setValue={setFilteredGenre}
+            filterValue={filteredGenre}
+            setFilterValue={setFilteredGenre}
             dropDown={genreActive}
             setActiveDropDown={setGenreActive}
-            valueOptions={genreOptions}
+            valueOptions={useAnimeGenre}
+            handleRemoveFilter={handleRemoveFilter}
+            handleClearFilteredItems={handleClearGenre}
          />
          <FilterComponent
+            filteredItems={filteredItems}
+            setFilteredItems={setFilteredItems}
             filterName="Year"
-            value={filteredYear}
-            setValue={setFilteredYear}
+            filterValue={filteredYear}
+            setFilterValue={setFilteredYear}
             dropDown={yearActive}
             setActiveDropDown={setYearActive}
-            valueOptions={yearOptions}
+            valueOptions={useAnimeYear}
+            handleRemoveFilter={handleRemoveFilter}
+            handleClearFilteredItems={handleClearYear}
          />
          <FilterComponent
+            filteredItems={filteredItems}
+            setFilteredItems={setFilteredItems}
             filterName="Status"
-            value={filteredStatus}
-            setValue={setFilteredStatus}
+            filterValue={filteredStatus}
+            setFilterValue={setFilteredStatus}
             dropDown={statusActive}
             setActiveDropDown={setStatusActive}
-            valueOptions={statusOptions}
+            valueOptions={useAnimeStatus}
+            handleRemoveFilter={handleRemoveFilter}
+            handleClearFilteredItems={handleClearStatus}
          />
       </div>
    );

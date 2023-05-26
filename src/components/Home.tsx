@@ -44,7 +44,7 @@ const Home = () => {
          <div className="grid gap-y-12 text-sm py-0">
             <div className="space-y-4 w-full">
                <div className="font-bold flex justify-between items-center w-full">
-                  <h1 className="">POPULAR THIS SEASON</h1>
+                  <h1 className="text-xs sm:text-sm">POPULAR THIS SEASON</h1>
                   <NavLink
                      to="/anime/popular"
                      className="text-xs text-[#676c75]"
@@ -56,7 +56,7 @@ const Home = () => {
             </div>
             <div className="space-y-4 w-full">
                <div className="font-bold flex justify-between items-center w-full">
-                  <h1 className="">UPCOMING SEASON</h1>
+                  <h1 className="text-xs sm:text-sm">UPCOMING SEASON</h1>
                   <NavLink
                      to="/anime/upcoming"
                      className="text-xs text-[#676c75]"
@@ -68,7 +68,7 @@ const Home = () => {
             </div>
             <div className="space-y-4 w-full">
                <div className="font-bold flex justify-between items-center w-full">
-                  <h1 className="">TOP ANIME</h1>
+                  <h1 className="text-xs sm:text-sm">TOP ANIME</h1>
                   <NavLink to="/anime/top" className="text-xs text-[#676c75]">
                      View All
                   </NavLink>

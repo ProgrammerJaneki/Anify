@@ -33,7 +33,6 @@ const useFetchTop = (contentLimit: number, page: number) => {
                   return animeData;
                })
             );
-            console.log('DATAAA: ', animeDataList);
             setFetchedTopData([...fetchedTopData, ...animeDataList]);
          } catch (fetchError: any) {
             console.group(fetchError);

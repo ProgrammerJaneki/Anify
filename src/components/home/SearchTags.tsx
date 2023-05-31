@@ -1,4 +1,4 @@
-import { useContext, useId, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { FilterModel } from '../../interface/FilterModel';
 import useAnimeSeason from '../../services/useAnimeSeason';

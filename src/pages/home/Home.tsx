@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, MouseEvent } from 'react';
-import AnimeList from './anime-sections/AnimeList';
-import useFetchPopular from '../services/useFetchPopular';
-import useFetchUpcoming from '../services/useFetchUpcoming';
-import useFetchTop from '../services/useFetchTop';
-import { AnimeDataModel } from '../interface/AnimeDataModel';
+import AnimeList from '../../components/anime-section/AnimeList';
+import useFetchPopular from '../../services/useFetchPopular';
+import useFetchUpcoming from '../../services/useFetchUpcoming';
+import useFetchTop from '../../services/useFetchTop';
+import { AnimeDataModel } from '../../interface/AnimeDataModel';
 import { NavLink } from 'react-router-dom';
 
 interface FilterModel {
@@ -40,8 +40,8 @@ const Home = () => {
    }, [fetchedPopularData, fetchedUpcomingData, fetchedTopData]);
 
    return (
-      <div className="grid text-[#c9d7d7]">
-         <div className="grid gap-y-12 text-sm py-0">
+      <div className="grid text-[#c9d7d7] py-8">
+         <div className="grid gap-y-12 text-sm py-2">
             <div className="space-y-4 w-full">
                <div className="font-bold flex justify-between items-center w-full">
                   <h1 className="text-xs sm:text-sm">POPULAR THIS SEASON</h1>
@@ -52,7 +52,13 @@ const Home = () => {
                      View All
                   </NavLink>
                </div>
-               <AnimeList animeListData={popularAnimeData} />
+               <AnimeList
+                  animeListData={popularAnimeData}
+                  loading={loadingPopular}
+                  error={errorPopular}
+                  skeletonAmount={4}
+                  page={page}
+               />
             </div>
             <div className="space-y-4 w-full">
                <div className="font-bold flex justify-between items-center w-full">
@@ -64,7 +70,13 @@ const Home = () => {
                      View All
                   </NavLink>
                </div>
-               <AnimeList animeListData={upcomingAnimeData} />
+               <AnimeList
+                  animeListData={upcomingAnimeData}
+                  loading={loadingUpcoming}
+                  error={errorUpcoming}
+                  skeletonAmount={4}
+                  page={page}
+               />
             </div>
             <div className="space-y-4 w-full">
                <div className="font-bold flex justify-between items-center w-full">
@@ -73,7 +85,13 @@ const Home = () => {
                      View All
                   </NavLink>
                </div>
-               <AnimeList animeListData={topAnimeData} />
+               <AnimeList
+                  animeListData={topAnimeData}
+                  loading={loadingTop}
+                  error={errorTop}
+                  skeletonAmount={4}
+                  page={page}
+               />
             </div>
          </div>
       </div>

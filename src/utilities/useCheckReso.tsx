@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-const TopAnime = () => {
+const useCheckReso = () => {
    const [resolution, setResolution] = useState({ width: 0, height: 0 });
-
+   const [resolutionWidth, setResolutionWidth] = useState(0);
+   const [resolutonHeight, setResolutionHeight] = useState(0);
    useEffect(() => {
       const handleResize = () => {
-         setResolution({
-            width: window.innerWidth,
-            height: window.innerHeight,
-         });
+         setResolutionWidth(window.innerWidth);
+         setResolutionHeight(window.innerHeight);
       };
 
       // Attach the event listener
@@ -23,13 +22,9 @@ const TopAnime = () => {
       return () => {
          window.removeEventListener('resize', handleResize);
       };
-   }, []);
+   });
 
-   return (
-      <div>
-         Current Resolution: {resolution.width}x{resolution.height}
-      </div>
-   );
+   return { resolutionWidth, resolutonHeight };
 };
 
-export default TopAnime;
+export default useCheckReso;

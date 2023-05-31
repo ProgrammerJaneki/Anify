@@ -8,6 +8,7 @@ const useFetchFilteredAnime = (
    updatedFilteredGenre: string,
    updatedFilteredYear: string,
    updatedFilteredStatus: string,
+   updatedFilteredSeason: string,
    page: number
 ) => {
    const [fetchedFilteredData, setFetchedFilteredData] = useState<
@@ -20,14 +21,9 @@ const useFetchFilteredAnime = (
 
    useEffect(() => {
       const fetchPopularAnimeData = async () => {
-         // console.log('Fetch: ', updatedFilteredGenre, updatedFilteredYear);
-         // setFetchedFilteredData([]);
          setFilteredError('');
          try {
             setLoadingFiltered(true);
-            // const baseUrl = `https://api.jikan.moe/v4/seasons/now?limit=${contentLimit}&page=${page}`;
-            // const baseUrl = `https://api.jikan.moe/v4/anime?q=${animeName}&genres=${updatedFilteredGenre}&start_date=${updatedFilteredYear}&order_by=members&sort=desc&page=1`;
-            // const baseUrl = `https://api.jikan.moe/v4/anime?q=${animeName}&genres=${updatedFilteredGenre}&start_date=${updatedFilteredYear}&order_by=members&sort=desc&page=1`;
             const genreQueryParam =
                updatedFilteredGenre === ''
                   ? ''
@@ -40,11 +36,15 @@ const useFetchFilteredAnime = (
                updatedFilteredStatus === ''
                   ? ''
                   : `&status=${updatedFilteredStatus}`;
-            // console.log('GENRE: ', updatedFilteredGenre);
-            const baseUrl = `https://api.jikan.moe/v4/anime?q=${animeName}&${genreQueryParam}${yearQueryParam}${statusQueryParam}&order_by=members&sort=desc&page=${page}`;
-            console.log('Url: ', baseUrl);
+            // const secUrl = `https://api.jikan.moe/v4/seasons/${yearQueryParam}/${filteredSeason}`
+            const baseUrl =
+               updatedFilteredSeason.length > 0
+                  ? `https://api.jikan.moe/v4/seasons/${updatedFilteredYear}/${updatedFilteredSeason}?page=${page}`
+                  : `https://api.jikan.moe/v4/anime?q=${animeName}${genreQueryParam}${yearQueryParam}${statusQueryParam}&page=${page}`;
+
+            // const baseUrl =
+            // `https://api.jikan.moe/v4/anime?q=${animeName}${genreQueryParam}${yearQueryParam}${statusQueryParam}&page=${page}`
             const listPopularAnime = await axios.get(baseUrl);
-            console.log('Page: ', page);
             const { data, pagination } = listPopularAnime.data;
             setHasMore(pagination.has_next_page);
             const animeDataList = await Promise.all(
@@ -79,10 +79,7 @@ const useFetchFilteredAnime = (
                   setLoadingFiltered(false);
                }, 500);
             }
-            console.log('Old Data: ', fetchedFilteredData);
-            console.log('New Data: ', animeDataList);
          } catch (fetchError: any) {
-            console.group('Error: ', fetchError);
             setFilteredError('No Results');
          }
       };
@@ -92,6 +89,7 @@ const useFetchFilteredAnime = (
       updatedFilteredGenre,
       updatedFilteredYear,
       updatedFilteredStatus,
+      updatedFilteredSeason,
       page,
    ]);
 

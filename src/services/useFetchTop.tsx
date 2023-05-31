@@ -6,7 +6,7 @@ const useFetchTop = (contentLimit: number, page: number) => {
    const [fetchedTopData, setFetchedTopData] = useState<AnimeDataModel[]>([]);
    const [loadingTop, setLoadingTop] = useState<boolean>(false);
    const [errorTop, setErrorTop] = useState<string>('');
-
+   const [hasMore, setHasMore] = useState<boolean>(true);
    useEffect(() => {
       const fetchTopAnimeData = async () => {
          setErrorTop('');
@@ -15,6 +15,7 @@ const useFetchTop = (contentLimit: number, page: number) => {
             const baseUrl = `https://api.jikan.moe/v4/top/anime?limit=${contentLimit}&page=${page}`;
             const listPopularAnime = await axios.get(baseUrl);
             const { data, pagination } = listPopularAnime.data;
+            setHasMore(pagination.has_next_page);
             const animeDataList = await Promise.all(
                data.map(async (anime: AnimeDataModel) => {
                   const animeData: AnimeDataModel = {
@@ -33,18 +34,18 @@ const useFetchTop = (contentLimit: number, page: number) => {
                   return animeData;
                })
             );
-            setFetchedTopData([...fetchedTopData, ...animeDataList]);
+            setTimeout(() => {
+               setFetchedTopData([...fetchedTopData, ...animeDataList]);
+               setLoadingTop(false);
+            }, 500);
          } catch (fetchError: any) {
-            console.group(fetchError);
             setErrorTop('No Results');
-         } finally {
-            setLoadingTop(false);
          }
       };
       fetchTopAnimeData();
-   }, [contentLimit]);
+   }, [contentLimit, page]);
 
-   return { fetchedTopData, loadingTop, errorTop };
+   return { fetchedTopData, loadingTop, errorTop, hasMore };
 };
 
 export default useFetchTop;

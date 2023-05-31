@@ -21,7 +21,6 @@ const useFetchPopular = (contentLimit: number, page: number) => {
             const listPopularAnime = await axios.get(baseUrl);
             const { data, pagination } = listPopularAnime.data;
             setHasMore(pagination.has_next_page);
-            console.log(pagination.has_next_page);
             const animeDataList = await Promise.all(
                data.map(async (anime: AnimeDataModel) => {
                   const animeData: AnimeDataModel = {
@@ -47,10 +46,6 @@ const useFetchPopular = (contentLimit: number, page: number) => {
          } catch (fetchError: any) {
             console.group(fetchError);
             setErrorPopular('No Results');
-         } finally {
-            // setTimeout(() => {
-            //    setLoadingPopular(false);
-            // }, 2000);
          }
       };
       fetchPopularAnimeData();

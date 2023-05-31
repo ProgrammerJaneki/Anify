@@ -8,6 +8,7 @@ const useFetchUpcoming = (contentLimit: number, page: number) => {
    >([]);
    const [loadingUpcoming, setLoadingUpcoming] = useState<boolean>(false);
    const [errorUpcoming, setErrorUpcoming] = useState<string>('');
+   const [hasMore, setHasMore] = useState<boolean>(true);
 
    useEffect(() => {
       const fetchUpcomingData = async () => {
@@ -17,6 +18,7 @@ const useFetchUpcoming = (contentLimit: number, page: number) => {
             const baseUrl = `https://api.jikan.moe/v4/seasons/upcoming?limit=${contentLimit}&page=${page}`;
             const listUpcomingAnime = await axios.get(baseUrl);
             const { data, pagination } = listUpcomingAnime.data;
+            setHasMore(pagination.has_next_page);
             const animeDataList = await Promise.all(
                data.map(async (anime: AnimeDataModel) => {
                   const animeData: AnimeDataModel = {
@@ -35,18 +37,21 @@ const useFetchUpcoming = (contentLimit: number, page: number) => {
                   return animeData;
                })
             );
-            setFetchedUpcomingData([...fetchedUpcomingData, ...animeDataList]);
+            setTimeout(() => {
+               setFetchedUpcomingData([
+                  ...fetchedUpcomingData,
+                  ...animeDataList,
+               ]);
+               setLoadingUpcoming(false);
+            }, 500);
          } catch (fetchError: any) {
-            console.group(fetchError);
-            setErrorUpcoming('No Results');
-         } finally {
-            setLoadingUpcoming(false);
+            setErrorUpcoming(fetchError);
          }
       };
       fetchUpcomingData();
    }, [contentLimit, page]);
 
-   return { fetchedUpcomingData, loadingUpcoming, errorUpcoming };
+   return { fetchedUpcomingData, loadingUpcoming, errorUpcoming, hasMore };
 };
 
 export default useFetchUpcoming;

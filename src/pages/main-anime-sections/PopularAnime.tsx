@@ -5,7 +5,7 @@ import { AnimeDataModel } from '../../interface/AnimeDataModel';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const PopularAnime = () => {
-   const [contentLimit, setContentLimit] = useState<number>(25);
+   const [contentLimit, _setContentLimit] = useState<number>(25);
    const [page, setPage] = useState<number>(1);
    const [popularAnimeData, setPopularAnimeData] = useState<AnimeDataModel[]>(
       []
@@ -14,11 +14,7 @@ const PopularAnime = () => {
       useFetchPopular(contentLimit, page);
 
    useEffect(() => {
-      // setTimeout(() => {
       setPopularAnimeData(fetchedPopularData);
-      // }, 500);
-      // console.log('Error: ', errorPopular);
-      // console.log('Data: ', fetchedPopularData);
    }, [fetchedPopularData]);
    const handleNextPopularPage = () => {
       setPage(page + 1);

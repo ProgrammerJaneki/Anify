@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { AnimeDataModel } from '../../interface/AnimeDataModel';
 import useFetchFilteredAnime from '../../services/useFetchFilteredAnime';
 import AnimeList from '../../components/anime-section/AnimeList';

@@ -37,7 +37,7 @@ const FilterComponent = ({
    valueOptions,
    filterName,
 }: FilterComponentModel) => {
-   const { filteredSeason, setFilteredSeason } = useContext(
+   const { setFilteredSeason } = useContext(
       SearchFilterContext
    ) as SearchFilterContextType;
    const handleValueChange = (newValue: FilterModel) => {
@@ -54,10 +54,6 @@ const FilterComponent = ({
    };
    const { resolutionWidth } = useCheckReso();
    const modalRef = useRef<HTMLDivElement>(null);
-
-   const handleClose = (e: Event) => {
-      e.stopPropagation();
-   };
 
    useEffect(() => {
       const handler = (e: Event) => {

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AnimeDataModel } from '../interface/AnimeDataModel';
-import { FilterModel } from '../interface/FilterModel';
 
 const useFetchFilteredAnime = (
    animeName: string,

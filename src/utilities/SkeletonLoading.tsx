@@ -1,4 +1,3 @@
-import React from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,7 +11,6 @@ const SkeletonLoading = ({ amount }: SkeletonModel) => {
 
    return (
       <>
-         {/* <div>Hey</div> */}
          {numCards.map((_card, index) => (
             <SkeletonTheme
                key={index}

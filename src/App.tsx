@@ -1,7 +1,7 @@
 import Navigation from './components/Navigation';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import SearchFilter from './components/home/SearchFilter';
-import React, { Suspense, lazy, ChangeEvent, useState } from 'react';
+import { Suspense, lazy, ChangeEvent, useState } from 'react';
 import useDebounce from './utilities/useDebounce';
 import { FilterModel } from './interface/FilterModel';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -139,21 +139,6 @@ function App() {
                   <Navigation />
                   <div className="grid place-items-center px-4 w-full ">
                      <div className="py-8 max-w-4xl w-full overflow-x-hidden sm:overflow-x-visible">
-                        {/* <SearchFilterContext.Provider
-                        value={{
-                           handleSetSearchQuery,
-                           handleRemoveFilter,
-                           handleClearFilteredItems,
-                           searchQuery,
-                           debouncedSearchQuery,
-                           filteredGenre,
-                           filteredYear,
-                           filteredStatus,
-                           filteredSeason,
-                           setFilteredSeason,
-                           setFilteredYear,
-                        }}
-                     > */}
                         {isAnimeDetailsRoute === null &&
                         (isAnimeRoute || isHome) !== null ? (
                            <SearchFilter {...handleSearchFilterProps} />
@@ -247,7 +232,6 @@ function App() {
                               }
                            />
                         </Routes>
-                        {/* </SearchFilterContext.Provider> */}
                      </div>
                   </div>
                </SearchFilterContext.Provider>

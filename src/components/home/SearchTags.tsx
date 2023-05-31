@@ -1,4 +1,4 @@
-import React, { useContext, useId, useState } from 'react';
+import { useContext, useId, useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { FilterModel } from '../../interface/FilterModel';
 import useAnimeSeason from '../../services/useAnimeSeason';
@@ -67,9 +67,7 @@ const SearchTags = ({ totalFilterLength }: SearchTagsModel) => {
             />
             <ClearAllFilterButton totalFilterLength={totalFilterLength} />
          </div>
-         {/* {(filteredYear.length && filteredSeason.length) !== 0 && ( */}
          <SeasonFilter />
-         {/* )} */}
       </div>
    );
 };

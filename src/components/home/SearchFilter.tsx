@@ -50,7 +50,6 @@ const SearchFilter = ({
    ) as SearchFilterContextType;
    const { resolutionWidth } = useCheckReso();
    // grid-cols-3 sm:grid-cols-4 flex-wrap sm:flex-nowrap
-   const list = ['New', 'Hot', 'Gaming', 'Coding', 'Vlogs', 'Sport', 'Gym'];
    return (
       <div className="md:flex grid-cols-1 md:gap-4 space-y-4 md:space-y-0 text-sm w-full ">
          <SearchBar

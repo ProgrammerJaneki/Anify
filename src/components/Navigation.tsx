@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import useCheckReso from '../utilities/useCheckReso';
@@ -17,12 +17,7 @@ import {
    useInteractions,
    useRole,
 } from '@floating-ui/react';
-import {
-   motion,
-   useTransform,
-   useScroll,
-   useMotionValueEvent,
-} from 'framer-motion';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 
 const Navigation = () => {
    const [scrollPosition, setScrollPosition] = useState(0);
@@ -56,9 +51,6 @@ const Navigation = () => {
                >
                   A<span className="text-[#59dfd6]">F</span>
                </NavLink>
-               {/* Middle */}
-
-               {/* Menu */}
                {resolutionWidth < 640 ? (
                   <MenuBar />
                ) : (
@@ -68,9 +60,7 @@ const Navigation = () => {
                            <LinkLists />
                         </ul>
                      </nav>
-                     {/* Right */}
                      <div>
-                        {/* will show a modal at hover */}
                         <button className="hidden sm:block">
                            <Icon
                               icon="game-icons:perspective-dice-six-faces-random"

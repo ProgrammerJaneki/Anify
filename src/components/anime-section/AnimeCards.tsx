@@ -7,14 +7,12 @@ import {
    autoUpdate,
    offset,
    flip,
-   shift,
    useHover,
    useFocus,
    useDismiss,
    useRole,
    useInteractions,
    FloatingPortal,
-   inline,
 } from '@floating-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useCheckReso from '../../utilities/useCheckReso';
@@ -35,18 +33,14 @@ const AnimeCards = ({
    setHoveredItem,
 }: HoverModalModel) => {
    const [isOpen, setIsOpen] = useState<boolean>(false);
-   const { refs, x, y, strategy, floatingStyles, context } = useFloating({
+   const { refs, floatingStyles, context } = useFloating({
       open: isOpen,
       onOpenChange: setIsOpen,
       placement: 'right',
       whileElementsMounted: autoUpdate,
-      middleware: [
-         offset(10),
-         flip({}),
-         // shift(),
-      ],
+      middleware: [offset(10), flip({})],
    });
-   const { resolutionWidth, resolutonHeight } = useCheckReso();
+   const { resolutionWidth } = useCheckReso();
    const { handleClearFilteredItems } = useContext(
       SearchFilterContext
    ) as SearchFilterContextType;

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { AnimeDataModel } from '../interface/AnimeDataModel';
 

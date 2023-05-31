@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, MouseEvent } from 'react';
+import { useState, useEffect } from 'react';
 import AnimeList from '../../components/anime-section/AnimeList';
 import useFetchPopular from '../../services/useFetchPopular';
 import useFetchUpcoming from '../../services/useFetchUpcoming';
@@ -6,18 +6,8 @@ import useFetchTop from '../../services/useFetchTop';
 import { AnimeDataModel } from '../../interface/AnimeDataModel';
 import { NavLink } from 'react-router-dom';
 
-interface FilterModel {
-   value: string | number;
-   setValue: React.Dispatch<React.SetStateAction<string>>;
-   dropDown: boolean;
-   setActiveDropDown: (dropDown: React.SetStateAction<boolean>) => void;
-   valueOptions: string[];
-   filterName: string;
-}
-
 const Home = () => {
-   const [contentLimit, setContentLimit] = useState<number>(8);
-   const [page, setPage] = useState<number>(1);
+   const [page, _setPage] = useState<number>(1);
    const [popularAnimeData, setPopularAnimeData] = useState<AnimeDataModel[]>(
       []
    );

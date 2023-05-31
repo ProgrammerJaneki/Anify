@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Icon } from '@iconify/react';
+import { useEffect, useState } from 'react';
 import { AnimeDataModel } from '../../interface/AnimeDataModel';
 import AnimeList from '../../components/anime-section/AnimeList';
 import useFetchUpcoming from '../../services/useFetchUpcoming';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const UpcomingAnime = () => {
-   const [contentLimit, setContentLimit] = useState<number>(25);
+   const [contentLimit, _setContentLimit] = useState<number>(25);
    const [page, setPage] = useState<number>(1);
    const [upcomingAnimeData, setUpcomingAnimeData] = useState<AnimeDataModel[]>(
       []

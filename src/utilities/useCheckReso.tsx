@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useCheckReso = () => {
-   const [resolution, setResolution] = useState({ width: 0, height: 0 });
+   const [resolution, _setResolution] = useState({ width: 0, height: 0 });
    const [resolutionWidth, setResolutionWidth] = useState(0);
    const [resolutonHeight, setResolutionHeight] = useState(0);
    useEffect(() => {

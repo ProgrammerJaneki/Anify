@@ -22,7 +22,6 @@ const PopularAnime = () => {
 
    return (
       <div className="space-y-4 py-6 w-full">
-         <div>Click</div>
          <InfiniteScroll
             dataLength={popularAnimeData.length}
             next={handleNextPopularPage}

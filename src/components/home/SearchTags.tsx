@@ -118,12 +118,15 @@ const SearchQueryWrapper = () => {
 };
 
 const ClearAllFilterButton = ({ totalFilterLength }: SearchTagsModel) => {
-   const { handleClearFilteredItems, filteredSeason } = useContext(
+   const { handleClearFilteredItems, filteredSeason, searchQuery } = useContext(
       SearchFilterContext
    ) as SearchFilterContextType;
+   const isSearchFiltersPresent = totalFilterLength === 1 && searchQuery !== '';
    return (
       <>
-         {(totalFilterLength > 1 || filteredSeason.length !== 0) && (
+         {(totalFilterLength > 1 ||
+            filteredSeason.length !== 0 ||
+            isSearchFiltersPresent) && (
             <div className="group-hover:flex flex sm:hidden items-center gap-x-2 font-bold bg-[#676c75] text-[#dedede] py-1 px-2 rounded-lg transition-all duration-150 ease-linear">
                <span>Clear</span>
                <button

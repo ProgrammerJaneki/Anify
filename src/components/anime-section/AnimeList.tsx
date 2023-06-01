@@ -21,14 +21,24 @@ const AnimeList = ({
    page,
 }: AnimeListModel) => {
    const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+   const [showMessage, setShowMessage] = useState<boolean>(false);
+   setTimeout(() => {
+      setShowMessage(true);
+   }, 1000);
    return (
       <>
-         {(animeListData.length === 0 && !loading) ||
-            (error !== '' && (
-               <div className="flex justify-center items-center w-full ">
-                  {error !== '' ? 'Error' : 'No Results'}
+         {showMessage &&
+            animeListData.length === 0 &&
+            !loading &&
+            error === '' && (
+               <div className="flex justify-center items-center w-full">
+                  No Results
                </div>
-            ))}
+            )}
+
+         {error !== '' && (
+            <div className="flex justify-center items-center w-full">Error</div>
+         )}
          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4  gap-y-4 gap-x-4 sm:gap-x-8 w-ful">
             {loading && page === 1
                ? ''

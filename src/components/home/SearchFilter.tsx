@@ -33,7 +33,7 @@ interface SearchBarModel {
    setIsFilterHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SearchFilter = ({
+const SearchFilter: React.FC<SearchFillterModel> = ({
    setFilteredGenre,
    setFilteredYear,
    setFilteredStatus,
@@ -43,7 +43,7 @@ const SearchFilter = ({
    setGenreActive,
    setYearActive,
    setStatusActive,
-}: SearchFillterModel) => {
+}) => {
    const [isFilterHidden, setIsFilterHidden] = useState<boolean>(false);
    const { filteredGenre, filteredYear, filteredStatus } = useContext(
       SearchFilterContext

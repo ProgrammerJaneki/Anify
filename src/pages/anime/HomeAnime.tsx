@@ -19,9 +19,16 @@ interface WrapperModel {
 
 const Home = () => {
    return (
+      <div className=" overflow-x-hidden sm:overflow-x-visible w-full max-w-4xl">
+         <MainSection />
+      </div>
+   );
+};
+
+const MainSection: React.FC = () => {
+   return (
       <div className="grid text-[#9FADBD] py-8 w-full">
          <div className="grid gap-y-12 text-sm py-2">
-            {/* <PopularWrapper page={page} /> */}
             <SectionWrapper
                wrapperFunction={getFetchPopular}
                sectionTitle="POPULAR ANIME"
@@ -45,12 +52,12 @@ const Home = () => {
    );
 };
 
-const SectionWrapper = ({
+const SectionWrapper: React.FC<WrapperModel> = ({
    wrapperFunction,
    sectionTitle,
    sectionKey,
    route,
-}: WrapperModel) => {
+}) => {
    const [page, _setPage] = useState<number>(1);
    const [hoveredItem, setHoveredItem] = useState<number | null>(null);
    const { data, isLoading, isError } = useQuery({

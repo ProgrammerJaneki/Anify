@@ -13,6 +13,9 @@ export interface SearchFilterContextType {
    filteredSeason: FilterModel[];
    setFilteredSeason: React.Dispatch<React.SetStateAction<FilterModel[]>>;
    setFilteredYear: React.Dispatch<React.SetStateAction<FilterModel[]>>;
+   setFilteredGenre: React.Dispatch<React.SetStateAction<FilterModel[]>>;
+   setFilteredStatus: React.Dispatch<React.SetStateAction<FilterModel[]>>;
+
 }
 
 export const SearchFilterContext =

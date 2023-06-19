@@ -20,16 +20,22 @@ import {
 } from '@floating-ui/react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 
-const Navigation = () => {
+interface NavigationProps {
+   handleClearFilteredItems: (filterName: string) => void;
+}
+
+const Navigation: React.FC<NavigationProps> = ({
+   handleClearFilteredItems,
+}) => {
    const [scrollPosition, setScrollPosition] = useState(0);
    const [scrollLatest, setScrollLatest] = useState(true);
    const { scrollY } = useScroll();
    const location = useLocation();
    const isIndividualRoute = /^\/anime\/\d+\/.*$/;
    const isNavBarTransparent = isIndividualRoute.test(location.pathname);
-   const { handleClearFilteredItems } = useContext(
-      SearchFilterContext
-   ) as SearchFilterContextType;
+   // const { handleClearFilteredItems } = useContext(
+   //    SearchFilterContext
+   // ) as SearchFilterContextType;
 
    useMotionValueEvent(scrollY, 'change', (latest) => {
       setScrollPosition(latest);
@@ -58,24 +64,32 @@ const Navigation = () => {
                {/* Left */}
                <NavLink
                   to="/"
-                  className="font-extrabold text-3xl sm:text-4xl"
+                  className="text-[#fff] font-extrabold text-3xl sm:text-4xl"
                   onClick={() => handleClearFilteredItems('')}
                >
                   A<span className="text-[#59dfd6]">F</span>
                </NavLink>
                {resolutionWidth < 640 ? (
-                  <MenuBar />
+                  <MenuBar
+                     handleClearFilteredItems={handleClearFilteredItems}
+                  />
                ) : (
                   <>
                      <nav className="flex text-[#9FADBD] text-md font-medium ">
                         <ul
                            className={`${
                               isNavBarTransparent
-                                 ? 'text-[#cecece]'
+                                 ? scrollLatest && scrollPosition < 100
+                                    ? 'text-[#cecece]'
+                                    : 'text-[#676C75]'
                                  : 'text-[#40454f]'
                            }  flex gap-x-6 font-semibold`}
                         >
-                           <LinkLists />
+                           <LinkLists
+                              handleClearFilteredItems={
+                                 handleClearFilteredItems
+                              }
+                           />
                         </ul>
                      </nav>
                      <div>
@@ -96,7 +110,7 @@ const Navigation = () => {
    );
 };
 
-const MenuBar = () => {
+const MenuBar: React.FC<NavigationProps> = ({ handleClearFilteredItems }) => {
    const [menuOpen, setMenuOpen] = useState<boolean>(false);
    const { refs, floatingStyles, context } = useFloating({
       open: menuOpen,
@@ -132,7 +146,9 @@ const MenuBar = () => {
                {...getFloatingProps()}
             >
                <ul className="grid grid-cols-1 text-[#40454f] gap-y-4 font-semibold">
-                  <LinkLists />
+                  <LinkLists
+                     handleClearFilteredItems={handleClearFilteredItems}
+                  />
                </ul>
             </div>
          )}
@@ -140,10 +156,10 @@ const MenuBar = () => {
    );
 };
 
-const LinkLists = () => {
-   const { handleClearFilteredItems } = useContext(
-      SearchFilterContext
-   ) as SearchFilterContextType;
+const LinkLists: React.FC<NavigationProps> = ({ handleClearFilteredItems }) => {
+   // const { handleClearFilteredItems } = useContext(
+   //    SearchFilterContext
+   // ) as SearchFilterContextType;
    return (
       <>
          <li>

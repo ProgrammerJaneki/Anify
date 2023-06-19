@@ -198,7 +198,9 @@ const SeasonFilter = () => {
                </span>
             </div>
 
-            {isOpen && (
+            {!isOpen ? (
+               ''
+            ) : (
                <div
                   className="bg-[#14181d] absolute text-left z-20 rounded-sm space-y-1  sm:p-2 w-[120px] "
                   ref={refs.setFloating}

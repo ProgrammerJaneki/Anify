@@ -30,7 +30,7 @@ const IndividualAnime = () => {
       mal_id,
       anime_name,
       fullAnimeData,
-      isFullInfoSuccess
+      isFullInfoSuccess,
    };
    return (
       <div className="w-full ">
@@ -121,7 +121,6 @@ const TabLinks = () => {
       <div className="flex justify-between items-end text-sm text-[#676c75] font-semibold pt-6 snap-x snap-mandatory sm:scrollbar-thin scrollbar-thumb-[#676c75] scrollbar-track-rounded-md overflow-x-auto ">
          <NavLink
             to={`/anime/${mal_id}/${anime_name}/`}
-            // to="/anime/:mal_id/:anime_name/overview"
             className={({ isActive }) =>
                `py-4 pr-4 pl-0 sm:pl-4 snap-start ${
                   isActive

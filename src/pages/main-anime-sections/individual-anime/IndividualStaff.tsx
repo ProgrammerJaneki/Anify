@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAnimeData } from './IndividualAnime';
 import useFetchedAnimeStaff from '../../../services/individual-anime/useFetchedAnimeStaff';
 import { useLocation } from 'react-router-dom';

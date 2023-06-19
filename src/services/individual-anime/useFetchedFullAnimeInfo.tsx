@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { FullAnimeDataModel } from '../../interface/FullAnimeDataModel';
 import axios from 'axios';
-import { AnimeStatsModel } from '../../interface/AnimeStatsModel';
 
 const fetchedFullAnimeData = async (mal_id: number) => {
    const baseUrl = `https://api.jikan.moe/v4/anime/${mal_id}/full`;

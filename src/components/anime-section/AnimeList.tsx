@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AnimeDataModel } from '../../interface/AnimeDataModel';
 import AnimeCards from './AnimeCards';
 import SkeletonLoading from '../../utilities/SkeletonLoading';

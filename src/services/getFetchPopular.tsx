@@ -4,7 +4,7 @@ import { AnimeDataModel } from '../interface/AnimeDataModel';
 const fetchedPopularData = async (contentLimit: number, page: number) => {
    const baseUrl = `https://api.jikan.moe/v4/seasons/now?limit=${contentLimit}&page=${page}`;
    const listPopularData = await axios.get(baseUrl);
-   const { data, _pagination } = listPopularData.data;
+   const { data } = listPopularData.data;
    const animeDataList = data.map((anime: AnimeDataModel) => {
       const animeData: AnimeDataModel = {
          mal_id: anime.mal_id,

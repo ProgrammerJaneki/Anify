@@ -1,5 +1,4 @@
 import axios from 'axios';
-import React from 'react';
 import { AnimeStatsModel } from '../../interface/AnimeStatsModel';
 import { useQuery } from '@tanstack/react-query';
 

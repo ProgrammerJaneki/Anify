@@ -1,5 +1,3 @@
-import { Icon } from '@iconify/react/dist/iconify.js';
-
 export const ExternalIcons = {
    official: {
       icon: (
@@ -19,7 +17,7 @@ export const ExternalIcons = {
             />
          </svg>
       ),
-      color: '#59dfd6'
+      color: '#59dfd6',
    },
    wikipedia: {
       icon: (

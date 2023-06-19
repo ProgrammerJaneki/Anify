@@ -1,5 +1,5 @@
 import Navigation from './components/Navigation';
-import { Routes, Route, useLocation, useParams } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import SearchFilter from './components/home/SearchFilter';
 import { Suspense, lazy, ChangeEvent, useState } from 'react';
 import useDebounce from './utilities/useDebounce';
@@ -59,13 +59,10 @@ const App = () => {
 
    // Router Variables
    const { pathname } = useLocation();
-   const isAnimeDetailsRoute = pathname.match(/^\/anime\/\d+\/[^/]+$/);
-   const isAnimeRoute = pathname.match(/^\/anime(\/|$)/); // checks if route starts with /anime
    const isMainRoute = pathname.match(
       /^\/anime(?!.*(upcoming|popular|top)).*$/
    );
    const isHome = pathname.match(/^\/$/);
-   // const { mal_id } = useParams();
 
    // Array | Objects | Hooks
    const debouncedSearchQuery = useDebounce(searchQuery, 500);

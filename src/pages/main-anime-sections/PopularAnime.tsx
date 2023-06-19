@@ -7,7 +7,7 @@ import getFetchPopular from '../../services/getFetchPopular';
 import ErrorMessage from '../../utilities/ErrorMessage';
 
 const PopularAnime = () => {
-   const [contentLimit, _setContentLimit] = useState<number>(25);
+   const contentLimit = 25;
    const [totalLength, setTotalLength] = useState<number>(0);
    const { resolutionWidth } = useCheckReso();
    const responsiveSkeletonAmount = resolutionWidth < 640 ? 6 : 25;
@@ -33,7 +33,7 @@ const PopularAnime = () => {
          0
       );
       setTotalLength(TOTAL_LENGTH);
-   });
+   },[data?.pages]);
 
    return (
       <div className="space-y-4 py-6 w-full">

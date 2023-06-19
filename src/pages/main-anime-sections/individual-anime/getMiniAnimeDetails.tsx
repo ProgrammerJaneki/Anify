@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 import { MiniAnimeDataModel } from '../../../interface/MiniAnimeDataModel';
 
@@ -13,13 +12,13 @@ const fetchedMiniAnimeDetails = async (
       title: data.title,
       images: data.images,
       status: data.status,
-   }
-   console.log(miniAnimeData)
+   };
+   console.log(miniAnimeData);
    return miniAnimeData;
 };
 
 const getMiniAnimeDetails = (mal_id: number) => {
-   return fetchedMiniAnimeDetails(mal_id)
+   return fetchedMiniAnimeDetails(mal_id);
 };
 
 export default getMiniAnimeDetails;

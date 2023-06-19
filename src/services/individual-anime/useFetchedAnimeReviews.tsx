@@ -1,4 +1,3 @@
-import React from 'react';
 import { AnimeReviewsModel } from '../../interface/AnimeReviewsModel';
 import axios from 'axios';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -6,7 +5,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 const fetchedAnimeReviews = async (mal_id: number) => {
    const baseUrl = `https://api.jikan.moe/v4/anime/${mal_id}/reviews`;
    const getAnimeReviewsData = await axios.get(baseUrl);
-   const { data, pagination } = getAnimeReviewsData.data;
+   const { data } = getAnimeReviewsData.data;
    const animeReviewsDataList = data.map((review: AnimeReviewsModel) => {
       const animeReviewData: AnimeReviewsModel = {
          mal_id: review.mal_id,

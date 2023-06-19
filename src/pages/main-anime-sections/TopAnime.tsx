@@ -7,7 +7,7 @@ import getFetchTop from '../../services/getFetchTop';
 import ErrorMessage from '../../utilities/ErrorMessage';
 
 const PopularAnime = () => {
-   const [contentLimit, _setContentLimit] = useState<number>(25);
+   const contentLimit = 25;
    const { resolutionWidth } = useCheckReso();
    const newAmount = resolutionWidth < 640 ? 6 : 25;
    const [totalLength, setTotalLength] = useState<number>(0);

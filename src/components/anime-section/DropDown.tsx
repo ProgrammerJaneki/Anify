@@ -1,9 +1,7 @@
 import React from 'react';
 import {
    autoUpdate,
-   flip,
    offset,
-   shift,
    useClick,
    useDismiss,
    useFloating,
@@ -32,7 +30,7 @@ const DropDown: React.FC<DropDownModel> = ({
       open: showDropDown,
       onOpenChange: toggleDropDown,
       placement: 'bottom',
-      middleware: [offset(8), ],
+      middleware: [offset(8)],
       whileElementsMounted: autoUpdate,
    });
    const click = useClick(context);
@@ -44,7 +42,6 @@ const DropDown: React.FC<DropDownModel> = ({
       dismiss,
       role,
    ]);
-   // what we need? 1. dataList, activeData, setter
 
    return (
       <motion.button

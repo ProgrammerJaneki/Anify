@@ -28,7 +28,7 @@ const fetchedFiltered = async (
 
    // const baseUrl = `https://api.jikan.moe/v4/top/anime?limit=${contentLimit}&page=${page}`;
    const listTopData = await axios.get(baseUrl);
-   const { data, _pagination } = listTopData.data;
+   const { data } = listTopData.data;
    const animeDataList = data.map((anime: AnimeDataModel) => {
       const animeData: AnimeDataModel = {
          mal_id: anime.mal_id,

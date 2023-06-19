@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 import { AnimeRecoModel } from '../../interface/AnimeRecoModel';
 import { useQuery } from '@tanstack/react-query';

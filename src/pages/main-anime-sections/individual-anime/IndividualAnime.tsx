@@ -7,18 +7,13 @@ import { useOutletContext } from 'react-router-dom';
 import { FullAnimeDataModel } from '../../../interface/FullAnimeDataModel';
 import { IndividualAnimeContext } from '../../../utilities/contexts/IndividualAnimeContext';
 import { AnimeCharactersModel } from '../../../interface/AnimeCharactersModel';
-import { AnimeStaffModel } from '../../../interface/AnimeStaffModel';
 import useFetchedFullAnimeInfo from '../../../services/individual-anime/useFetchedFullAnimeInfo';
-import useFetchedAnimeCharacters from '../../../services/individual-anime/useFetchedAnimeCharacters';
-import useFetchedAnimeStaff from '../../../services/individual-anime/useFetchedAnimeStaff';
 import useFetchedAnimePictures from '../../../services/individual-anime/useFetchedAnimePictures';
 
 interface AnimeDataContextModel {
    mal_id: string | undefined;
    fullAnimeData: FullAnimeDataModel | undefined;
    characterData: AnimeCharactersModel[] | undefined;
-   // staffData: AnimeStaffModel[] | undefined;
-   // statData: AnimeStatsModel | undefined;
 }
 
 const IndividualAnime = () => {

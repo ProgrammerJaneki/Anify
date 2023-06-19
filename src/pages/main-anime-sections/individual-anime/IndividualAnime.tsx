@@ -12,12 +12,13 @@ import useFetchedAnimePictures from '../../../services/individual-anime/useFetch
 
 interface AnimeDataContextModel {
    mal_id: string | undefined;
+   anime_name: string | undefined;
    fullAnimeData: FullAnimeDataModel | undefined;
    characterData: AnimeCharactersModel[] | undefined;
 }
 
 const IndividualAnime = () => {
-   const { mal_id } = useParams();
+   const { mal_id, anime_name } = useParams();
    const { resolutionWidth } = useCheckReso();
    const [showContent, setShowContent] = useState<boolean>(false);
    const { pathname } = useLocation();
@@ -27,6 +28,7 @@ const IndividualAnime = () => {
    const { animePictureData } = useFetchedAnimePictures(mal_id);
    const contextProps = {
       mal_id,
+      anime_name,
       fullAnimeData,
    };
    return (
@@ -166,7 +168,7 @@ const TabLinks = () => {
             Reviews
          </NavLink>
          <NavLink
-            to={`/anime/${mal_id}/${anime_name}/stats/`}
+            to={`/anime/${mal_id}/${anime_name}/stats`}
             className={({ isActive }) =>
                `snap-start p-4 ${
                   isActive
@@ -177,18 +179,6 @@ const TabLinks = () => {
          >
             Stats
          </NavLink>
-         {/* <NavLink
-            to={`/anime/${mal_id}/${anime_name}/forum`}
-            className={({ isActive }) =>
-               `snap-start p-4 ${
-                  isActive
-                     ? 'text-[#9FADBD]'
-                     : 'hover:text-[#9FADBD] transition-all duration-150 ease-linear '
-               }`
-            }
-         >
-            Forum
-         </NavLink> */}
       </div>
    );
 };

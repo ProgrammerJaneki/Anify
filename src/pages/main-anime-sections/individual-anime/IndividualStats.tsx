@@ -12,7 +12,7 @@ import BarChart, {
    SampleDataModel,
 } from '../../../components/anime-section/BarChart';
 import useFetchedAnimeStats from '../../../services/individual-anime/useFetchedAnimeStats';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 interface SummaryStatsModel {
    label: string;
@@ -64,7 +64,7 @@ const options = {
 };
 
 const IndividualStats = () => {
-   const { mal_id } = useAnimeData();
+   const { mal_id, anime_name } = useAnimeData();
    const { statData } = useFetchedAnimeStats(mal_id);
    const { completed, watching, plan_to_watch, dropped, on_hold, total } =
       statData ?? {};
@@ -118,9 +118,15 @@ const IndividualStats = () => {
    return (
       <div className="text-[#ffff] w-full">
          <div className="flex flex-col gap-y-2 ">
-            <h1 className="text-[#9FADBD] font-semibold text-sm ">
+            {/* <h1 className="text-[#9FADBD] font-semibold text-sm ">
                Summary Stats
-            </h1>
+            </h1> */}
+            <NavLink
+               className="text-[#9FADBD] font-semibold text-sm"
+               to={`/anime/${mal_id}/${anime_name}/stats`}
+            >
+               Summary Stats
+            </NavLink>
             <div className="bg-[#14181D] flex flex-col gap-y-4 text-xs rounded-sm">
                {/* Completed, Watching, Planning Pause, Dropped */}
                <div className="flex justify-center flex-wrap p-4 gap-2 gap-y-4">

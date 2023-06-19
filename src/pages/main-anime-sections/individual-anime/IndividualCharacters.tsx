@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useAnimeData } from './IndividualAnime';
 import { AnimeCharactersModel } from '../../../interface/AnimeCharactersModel';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -44,7 +44,7 @@ const initialFilterState: State = {
 
 const IndividualCharacters: React.FC = () => {
    // Data
-   const { mal_id } = useAnimeData();
+   const { mal_id, anime_name } = useAnimeData();
    const { characterData } = useFetchedAnimeCharacters(mal_id);
    const languageList: string[] = [
       'japanese',
@@ -96,7 +96,12 @@ const IndividualCharacters: React.FC = () => {
                {isCharRoute ? (
                   <DropDown {...dropDownProps} />
                ) : (
-                  <h1>Characters</h1>
+                  <NavLink
+                     className="text-[#9FADBD] font-semibold text-sm"
+                     to={`/anime/${mal_id}/${anime_name}/characters`}
+                  >
+                     Characters
+                  </NavLink>
                )}
             </div>
             <InfiniteScroll

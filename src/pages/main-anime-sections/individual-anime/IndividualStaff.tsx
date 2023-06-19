@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useAnimeData } from './IndividualAnime';
 import useFetchedAnimeStaff from '../../../services/individual-anime/useFetchedAnimeStaff';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ColorRing } from 'react-loader-spinner';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const IndividualStaff = () => {
-   const { mal_id } = useAnimeData();
+   const { mal_id, anime_name } = useAnimeData();
    const { staffData } = useFetchedAnimeStaff(mal_id);
    const { pathname } = useLocation();
    const [maxItem, setMaxItem] = useState<number>(20);
@@ -26,7 +26,16 @@ const IndividualStaff = () => {
    return (
       <AnimatePresence>
          <div className="space-y-2 font-semibold text-sm text-[#9FADBD]">
-            {!isStaffRoute ? <h1>Staff</h1> : ''}
+            {isStaffRoute ? (
+               ''
+            ) : (
+               <NavLink
+                  className="text-[#9FADBD] font-semibold text-sm"
+                  to={`/anime/${mal_id}/${anime_name}/staff`}
+               >
+                  Staff
+               </NavLink>
+            )}
             <InfiniteScroll
                dataLength={maxItem}
                next={handleLoadMore}

@@ -1,12 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useLocation } from 'react-router-dom';
 import useCheckReso from '../utilities/useCheckReso';
-import {
-   SearchFilterContext,
-   SearchFilterContextType,
-} from '../utilities/contexts/SearchFilterContext';
 import {
    autoUpdate,
    flip,
@@ -33,9 +29,6 @@ const Navigation: React.FC<NavigationProps> = ({
    const location = useLocation();
    const isIndividualRoute = /^\/anime\/\d+\/.*$/;
    const isNavBarTransparent = isIndividualRoute.test(location.pathname);
-   // const { handleClearFilteredItems } = useContext(
-   //    SearchFilterContext
-   // ) as SearchFilterContextType;
 
    useMotionValueEvent(scrollY, 'change', (latest) => {
       setScrollPosition(latest);
@@ -157,9 +150,6 @@ const MenuBar: React.FC<NavigationProps> = ({ handleClearFilteredItems }) => {
 };
 
 const LinkLists: React.FC<NavigationProps> = ({ handleClearFilteredItems }) => {
-   // const { handleClearFilteredItems } = useContext(
-   //    SearchFilterContext
-   // ) as SearchFilterContextType;
    return (
       <>
          <li>

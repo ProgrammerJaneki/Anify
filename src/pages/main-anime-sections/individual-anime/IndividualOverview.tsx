@@ -14,35 +14,40 @@ import IndividualReviews from './IndividualReviews';
 
 const IndividualOverview = () => {
    const { resolutionWidth } = useCheckReso();
-   const { fullAnimeData } = useContext(
+   const { fullAnimeData, isFullInfoSuccess } = useContext(
       IndividualAnimeContext
    ) as IndividualAnimeContextType;
+   const thisBool = false;
    return (
       <div className="text-[#676c75] flex flex-col gap-y-6 sm:gap-y-8 w-full">
          {/* Relations */}
-         <AnimeRelations />
-         {resolutionWidth < 640 ? (
-            <div className="space-y-2">
-               <h2 className="text-[#9FADBD] font-semibold text-xs sm:text-sm block sm:hidden">
-                  Description
-               </h2>
-               <div className="bg-[#14181d] p-4 group space-y-0 sm:space-y-4 rounded-sm">
-                  <p className="text-[#676c75] relative leading-relaxed text-sm text-ellipsis">
-                     {fullAnimeData?.synopsis}
-                  </p>
-               </div>
-            </div>
+         {isFullInfoSuccess ? (
+            <>
+               <AnimeRelations />
+               {resolutionWidth < 640 ? (
+                  <div className="space-y-2">
+                     <h2 className="text-[#9FADBD] font-semibold text-xs sm:text-sm block sm:hidden">
+                        Description
+                     </h2>
+                     <div className="bg-[#14181d] p-4 group space-y-0 sm:space-y-4 rounded-sm">
+                        <p className="text-[#676c75] relative leading-relaxed text-sm text-ellipsis">
+                           {fullAnimeData?.synopsis}
+                        </p>
+                     </div>
+                  </div>
+               ) : (
+                  ''
+               )}
+               <IndividualCharacters />
+               <IndividualStaff />
+               <IndividualStats />
+               <AnimeVideo />
+               <AnimeReco />
+               <IndividualReviews />
+            </>
          ) : (
             ''
          )}
-         <IndividualCharacters />
-         <IndividualStaff />
-         <IndividualStats />
-         <AnimeVideo />
-         <AnimeReco />
-         {/* <div className="grid sec-md:grid-cols-2 gap-x-2"> */}
-            <IndividualReviews />
-         {/* </div> */}
       </div>
    );
 };

@@ -28,7 +28,7 @@ const IndividualReviews: React.FC = () => {
    const reviewDataList = reviewData?.pages;
    const reviewDataListLenth = reviewDataList?.[0].length;
    return reviewDataListLenth === 0 ? (
-      <></>
+      <>{isReviewRoute && <NoReviews />}</>
    ) : (
       <div className="space-y-2">
          {isReviewRoute ? (
@@ -199,6 +199,14 @@ const ReactionCardList: React.FC<ReactionCardListModel> = ({
                </div>
             );
          })}
+      </div>
+   );
+};
+
+const NoReviews: React.FC = () => {
+   return (
+      <div className="font-bold text-[#9FADBD] text-lg flex justify-center ">
+         This Anime has no Reviews
       </div>
    );
 };

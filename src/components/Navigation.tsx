@@ -36,8 +36,6 @@ const Navigation = () => {
       if (scrollPosition > latest) {
          setScrollLatest(true);
       } else setScrollLatest(false);
-      // console.log('Latest: ', scrollPosition);
-      // console.log('Scroll: ', scrollLatest);
    });
    const { resolutionWidth } = useCheckReso();
    return (

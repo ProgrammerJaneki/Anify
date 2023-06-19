@@ -24,12 +24,13 @@ const IndividualAnime = () => {
    const { pathname } = useLocation();
    const isMainRoute = /^\/anime\/\d+\/[^/]+\/$/.test(pathname);
 
-   const { fullAnimeData } = useFetchedFullAnimeInfo(mal_id);
+   const { fullAnimeData, isFullInfoSuccess } = useFetchedFullAnimeInfo(mal_id);
    const { animePictureData } = useFetchedAnimePictures(mal_id);
    const contextProps = {
       mal_id,
       anime_name,
       fullAnimeData,
+      isFullInfoSuccess
    };
    return (
       <div className="w-full ">

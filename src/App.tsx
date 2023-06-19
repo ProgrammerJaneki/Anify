@@ -157,6 +157,7 @@ const App = () => {
                   }}
                >
                   <Navigation />
+                  {/* Anime Section */}
                   <div
                      className={`${
                         isMainRoute !== null ? 'px-0' : 'px-4'

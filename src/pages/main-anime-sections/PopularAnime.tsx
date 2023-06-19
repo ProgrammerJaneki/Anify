@@ -1,42 +1,59 @@
 import { useEffect, useState } from 'react';
-import useFetchPopular from '../../services/useFetchPopular';
 import AnimeList from '../../components/anime-section/AnimeList';
-import { AnimeDataModel } from '../../interface/AnimeDataModel';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import useCheckReso from '../../utilities/useCheckReso';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import getFetchPopular from '../../services/getFetchPopular';
+import ErrorMessage from '../../utilities/ErrorMessage';
 
 const PopularAnime = () => {
    const [contentLimit, _setContentLimit] = useState<number>(25);
-   const [page, setPage] = useState<number>(1);
-   const [popularAnimeData, setPopularAnimeData] = useState<AnimeDataModel[]>(
-      []
-   );
-   const { fetchedPopularData, loadingPopular, errorPopular, hasMore } =
-      useFetchPopular(contentLimit, page);
-
-   useEffect(() => {
-      setPopularAnimeData(fetchedPopularData);
-   }, [fetchedPopularData]);
-   const handleNextPopularPage = () => {
-      setPage(page + 1);
+   const [totalLength, setTotalLength] = useState<number>(0);
+   const { resolutionWidth } = useCheckReso();
+   const responsiveSkeletonAmount = resolutionWidth < 640 ? 6 : 25;
+   const { data, fetchNextPage, hasNextPage, isFetching, isError } =
+      useInfiniteQuery({
+         queryKey: ['popularInfiniteList', contentLimit],
+         queryFn: ({ pageParam = 1 }) =>
+            getFetchPopular(contentLimit, pageParam),
+         cacheTime: 5000,
+         getNextPageParam: (lastPage, allPages) => {
+            return lastPage.length === 25 ? allPages.length + 1 : undefined;
+         },
+         
+         refetchOnWindowFocus: false,
+         
+      });
+   const handleNextPage = () => {
+      fetchNextPage();
    };
+   useEffect(() => {
+      const TOTAL_LENGTH = data?.pages.reduce(
+         (accumulator, item) => accumulator + item.length,
+         0
+      );
+      setTotalLength(TOTAL_LENGTH);
+   });
 
    return (
       <div className="space-y-4 py-6 w-full">
-         <InfiniteScroll
-            dataLength={popularAnimeData.length}
-            next={handleNextPopularPage}
-            hasMore={hasMore}
-            loader={null}
-            scrollThreshold={1}
-         >
-            <AnimeList
-               animeListData={popularAnimeData}
-               loading={loadingPopular}
-               error={errorPopular}
-               skeletonAmount={25}
-               page={page}
-            />
-         </InfiniteScroll>
+         {isError ? (
+            <ErrorMessage />
+         ) : (
+            <InfiniteScroll
+               dataLength={totalLength}
+               next={handleNextPage}
+               hasMore={!!hasNextPage}
+               loader={null}
+               scrollThreshold={1}
+            >
+               <AnimeList
+                  animeListData={data?.pages}
+                  loading={isFetching}
+                  skeletonAmount={responsiveSkeletonAmount}
+               />
+            </InfiniteScroll>
+         )}
       </div>
    );
 };

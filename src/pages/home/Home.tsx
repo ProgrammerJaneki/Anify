@@ -1,91 +1,90 @@
-import { useState, useEffect } from 'react';
-import AnimeList from '../../components/anime-section/AnimeList';
-import useFetchPopular from '../../services/useFetchPopular';
-import useFetchUpcoming from '../../services/useFetchUpcoming';
-import useFetchTop from '../../services/useFetchTop';
+import { useState } from 'react';
 import { AnimeDataModel } from '../../interface/AnimeDataModel';
+import ErrorMessage from '../../utilities/ErrorMessage';
 import { NavLink } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import getFetchPopular from '../../services/getFetchPopular';
+import getFetchTop from '../../services/getFetchTop';
+import getFetchUpcoming from '../../services/getFetchUpcoming';
+import AnimeCards from '../../components/anime-section/AnimeCards';
+import { AnimatePresence } from 'framer-motion';
+import SkeletonLoading from '../../utilities/SkeletonLoading';
+
+interface WrapperModel {
+   wrapperFunction: (contentLimit: number, page: number) => Promise<any>;
+   sectionTitle: string;
+   sectionKey: string;
+   route: string;
+}
 
 const Home = () => {
-   const [page, _setPage] = useState<number>(1);
-   const [popularAnimeData, setPopularAnimeData] = useState<AnimeDataModel[]>(
-      []
-   );
-   const [upcomingAnimeData, setUpcomingAnimeData] = useState<AnimeDataModel[]>(
-      []
-   );
-   const [topAnimeData, setTopAnimeData] = useState<AnimeDataModel[]>([]);
-   const { fetchedPopularData, loadingPopular, errorPopular } = useFetchPopular(
-      4,
-      1
-   );
-   const { fetchedUpcomingData, loadingUpcoming, errorUpcoming } =
-      useFetchUpcoming(4, 1);
-   const { fetchedTopData, loadingTop, errorTop } = useFetchTop(4, 1);
-
-   useEffect(() => {
-      setPopularAnimeData(fetchedPopularData);
-      setUpcomingAnimeData(fetchedUpcomingData);
-      setTopAnimeData(fetchedTopData);
-   }, [fetchedPopularData, fetchedUpcomingData, fetchedTopData]);
-
    return (
-      <div className="grid text-[#c9d7d7] py-8">
+      <div className="grid text-[#9FADBD] py-8 w-full">
          <div className="grid gap-y-12 text-sm py-2">
-            <div className="space-y-4 w-full">
-               <div className="font-bold flex justify-between items-center w-full">
-                  <h1 className="text-xs sm:text-sm">POPULAR THIS SEASON</h1>
-                  <NavLink
-                     to="/anime/popular"
-                     className="text-xs text-[#676c75]"
-                  >
-                     View All
-                  </NavLink>
-               </div>
-               <AnimeList
-                  animeListData={popularAnimeData}
-                  loading={loadingPopular}
-                  error={errorPopular}
-                  skeletonAmount={4}
-                  page={page}
-               />
-            </div>
-            <div className="space-y-4 w-full">
-               <div className="font-bold flex justify-between items-center w-full">
-                  <h1 className="text-xs sm:text-sm">UPCOMING SEASON</h1>
-                  <NavLink
-                     to="/anime/upcoming"
-                     className="text-xs text-[#676c75]"
-                  >
-                     View All
-                  </NavLink>
-               </div>
-               <AnimeList
-                  animeListData={upcomingAnimeData}
-                  loading={loadingUpcoming}
-                  error={errorUpcoming}
-                  skeletonAmount={4}
-                  page={page}
-               />
-            </div>
-            <div className="space-y-4 w-full">
-               <div className="font-bold flex justify-between items-center w-full">
-                  <h1 className="text-xs sm:text-sm">TOP ANIME</h1>
-                  <NavLink to="/anime/top" className="text-xs text-[#676c75]">
-                     View All
-                  </NavLink>
-               </div>
-               <AnimeList
-                  animeListData={topAnimeData}
-                  loading={loadingTop}
-                  error={errorTop}
-                  skeletonAmount={4}
-                  page={page}
-               />
-            </div>
+            {/* <PopularWrapper page={page} /> */}
+            <SectionWrapper
+               wrapperFunction={getFetchPopular}
+               sectionTitle="POPULAR ANIME"
+               sectionKey="popularAnimeData"
+               route="popular"
+            />
+            <SectionWrapper
+               wrapperFunction={getFetchUpcoming}
+               sectionTitle="UPCOMING ANIME"
+               sectionKey="upcomingAnimeData"
+               route="upcoming"
+            />
+            <SectionWrapper
+               wrapperFunction={getFetchTop}
+               sectionTitle="TOP ANIME"
+               sectionKey="topAnimeData"
+               route="top"
+            />
          </div>
       </div>
    );
 };
 
+const SectionWrapper = ({
+   wrapperFunction,
+   sectionTitle,
+   sectionKey,
+   route,
+}: WrapperModel) => {
+   const [page, _setPage] = useState<number>(1);
+   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+   const { data, isLoading, isError } = useQuery({
+      queryKey: [sectionKey, 4, page],
+      queryFn: () => wrapperFunction(4, page),
+      cacheTime: 5000,
+   });
+
+   return (
+      <div className="space-y-4 w-full">
+         <div className="font-bold flex justify-between items-center w-full">
+            <h1 className="text-xs sm:text-sm capitalize">{sectionTitle}</h1>
+            <NavLink to={`/anime/${route}`} className="text-xs text-[#676c75]">
+               View All
+            </NavLink>
+         </div>
+         {isError ? (
+            <ErrorMessage />
+         ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4  gap-y-4 gap-x-4 sm:gap-x-8 w-full">
+               {data?.map((item: AnimeDataModel) => (
+                  <AnimeCards
+                     key={item.mal_id}
+                     animeModalData={item}
+                     hoveredItem={hoveredItem}
+                     setHoveredItem={setHoveredItem}
+                  />
+               ))}
+               <AnimatePresence>
+                  {isLoading && <SkeletonLoading amount={4} />}
+               </AnimatePresence>
+            </div>
+         )}
+      </div>
+   );
+};
 export default Home;

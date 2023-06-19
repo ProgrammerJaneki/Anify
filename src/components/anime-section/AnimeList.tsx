@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimeDataModel } from '../../interface/AnimeDataModel';
 import AnimeCards from './AnimeCards';
 import SkeletonLoading from '../../utilities/SkeletonLoading';
@@ -6,52 +6,39 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { AnimatePresence } from 'framer-motion';
 
 interface AnimeListModel {
-   animeListData: AnimeDataModel[];
+   animeListData: any[] | undefined;
    loading: boolean;
-   error: string;
    skeletonAmount: number;
-   page: number;
 }
 
 const AnimeList = ({
    animeListData,
    loading,
-   error,
    skeletonAmount,
-   page,
 }: AnimeListModel) => {
    const [hoveredItem, setHoveredItem] = useState<number | null>(null);
-   const [showMessage, setShowMessage] = useState<boolean>(false);
-   setTimeout(() => {
-      setShowMessage(true);
-   }, 1000);
    return (
       <>
-         {showMessage &&
-            animeListData.length === 0 &&
-            !loading &&
-            error === '' && (
-               <div className="flex justify-center items-center w-full">
-                  No Results
-               </div>
-            )}
-
-         {error !== '' && (
-            <div className="flex justify-center items-center w-full">Error</div>
+         {JSON.stringify(animeListData) === '[[]]' && (
+            <div className="flex justify-center items-center w-full">
+               No Results
+            </div>
          )}
-         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4  gap-y-4 gap-x-4 sm:gap-x-8 w-ful">
-            {loading && page === 1
-               ? ''
-               : animeListData.map((item) => (
-                    <AnimeCards
-                       key={item.mal_id}
-                       animeModalData={item}
-                       hoveredItem={hoveredItem}
-                       setHoveredItem={setHoveredItem}
-                    />
-                 ))}
+         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4  gap-y-4 gap-x-4 sm:gap-x-8 w-full">
+            {animeListData?.map((animeData) =>
+               animeData?.map((item: AnimeDataModel) => (
+                  <AnimeCards
+                     key={item.mal_id}
+                     animeModalData={item}
+                     hoveredItem={hoveredItem}
+                     setHoveredItem={setHoveredItem}
+                  />
+               ))
+            )}
             <AnimatePresence>
-               {loading && <SkeletonLoading amount={skeletonAmount} />}
+               {(loading || loading) && (
+                  <SkeletonLoading amount={skeletonAmount} />
+               )}
             </AnimatePresence>
          </div>
       </>

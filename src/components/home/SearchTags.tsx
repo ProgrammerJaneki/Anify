@@ -200,7 +200,7 @@ const SeasonFilter = () => {
 
             {isOpen && (
                <div
-                  className="bg-[#14181d] absolute text-left z-20 rounded-md space-y-1 px-3 sm:px-2 py-4 w-[120px] "
+                  className="bg-[#14181d] absolute text-left z-20 rounded-sm space-y-1  sm:p-2 w-[120px] "
                   ref={refs.setFloating}
                   style={floatingStyles}
                   {...getFloatingProps()}

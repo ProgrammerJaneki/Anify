@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { useLocation } from 'react-router-dom';
 import useCheckReso from '../utilities/useCheckReso';
 import {
    SearchFilterContext,
@@ -23,6 +24,9 @@ const Navigation = () => {
    const [scrollPosition, setScrollPosition] = useState(0);
    const [scrollLatest, setScrollLatest] = useState(true);
    const { scrollY } = useScroll();
+   const location = useLocation();
+   const isIndividualRoute = /^\/anime\/\d+\/.*$/;
+   const isNavBarTransparent = isIndividualRoute.test(location.pathname);
    const { handleClearFilteredItems } = useContext(
       SearchFilterContext
    ) as SearchFilterContextType;
@@ -32,6 +36,8 @@ const Navigation = () => {
       if (scrollPosition > latest) {
          setScrollLatest(true);
       } else setScrollLatest(false);
+      // console.log('Latest: ', scrollPosition);
+      // console.log('Scroll: ', scrollLatest);
    });
    const { resolutionWidth } = useCheckReso();
    return (
@@ -40,9 +46,17 @@ const Navigation = () => {
             initial="visible"
             animate={scrollLatest ? 'visible' : 'hidden'}
             variants={navbarVariants}
-            className="bg-[#14181d] opacity-10 sticky top-0 left-0 z-20 grid place-items-center py-4 px-4 w-full"
+            // Check transparency tomorrow
+            className={` 
+            ${isNavBarTransparent ? 'fixed ' : 'sticky'}
+            ${
+               scrollLatest && scrollPosition < 100 && isNavBarTransparent
+                  ? 'bg-opacity-40 '
+                  : 'transition-all duration-300 ease-linear '
+            }
+            bg-[#14181d] top-0 left-0 z-20 grid place-items-center py-4 px-4 w-full`}
          >
-            <header className=" flex justify-between items-center w-full max-w-4xl">
+            <header className="flex justify-between items-center w-full max-w-4xl">
                {/* Left */}
                <NavLink
                   to="/"
@@ -55,8 +69,14 @@ const Navigation = () => {
                   <MenuBar />
                ) : (
                   <>
-                     <nav className="hidden sm:flex text-[#c9d7d7] text-md font-medium ">
-                        <ul className="text-[#40454f] flex gap-x-6 font-semibold">
+                     <nav className="flex text-[#9FADBD] text-md font-medium ">
+                        <ul
+                           className={`${
+                              isNavBarTransparent
+                                 ? 'text-[#cecece]'
+                                 : 'text-[#40454f]'
+                           }  flex gap-x-6 font-semibold`}
+                        >
                            <LinkLists />
                         </ul>
                      </nav>
@@ -96,30 +116,29 @@ const MenuBar = () => {
       dismiss,
       role,
    ]);
-   return (
-      <>
-         <button
-            className="relative"
-            ref={refs.setReference}
-            {...getReferenceProps()}
-            onClick={() => setMenuOpen(!menuOpen)}
-         >
-            <Icon icon="ion:menu" width="30" height="30" />
 
-            {menuOpen && (
-               <div
-                  className="absolute bg-[#181c22] text-md text-left shadow-md rounded-md text-[#40454f] px-4 py-5 w-[150px]"
-                  ref={refs.setFloating}
-                  style={floatingStyles}
-                  {...getFloatingProps()}
-               >
-                  <ul className="grid grid-cols-1 text-[#40454f] gap-y-4 font-semibold">
-                     <LinkLists />
-                  </ul>
-               </div>
-            )}
-         </button>
-      </>
+   return (
+      <button
+         className="relative "
+         ref={refs.setReference}
+         {...getReferenceProps()}
+         onClick={() => setMenuOpen(!menuOpen)}
+      >
+         <Icon icon="ion:menu" width="30" height="30" />
+
+         {menuOpen && (
+            <div
+               className="absolute bg-[#181c22] text-md text-left shadow-md rounded-md text-[#40454f] px-4 py-5 w-[150px]"
+               ref={refs.setFloating}
+               style={floatingStyles}
+               {...getFloatingProps()}
+            >
+               <ul className="grid grid-cols-1 text-[#40454f] gap-y-4 font-semibold">
+                  <LinkLists />
+               </ul>
+            </div>
+         )}
+      </button>
    );
 };
 
@@ -133,7 +152,7 @@ const LinkLists = () => {
             <NavLink
                to="/"
                className={({ isActive }) =>
-                  isActive ? 'text-[#c9d7d7] ' : 'hover:text-[#c9d7d7] '
+                  isActive ? 'text-[#9FADBD] ' : 'hover:text-[#9FADBD] '
                }
                onClick={() => handleClearFilteredItems('')}
             >
@@ -145,8 +164,8 @@ const LinkLists = () => {
                to="/manga"
                className={({ isActive }) =>
                   isActive
-                     ? 'text-[#c9d7d7] font-bold'
-                     : 'hover:text-[#c9d7d7] '
+                     ? 'text-[#9FADBD] font-bold'
+                     : 'hover:text-[#9FADBD] '
                }
                onClick={() => handleClearFilteredItems('')}
             >
@@ -158,8 +177,8 @@ const LinkLists = () => {
                to="/characters"
                className={({ isActive }) =>
                   isActive
-                     ? 'text-[#c9d7d7] font-bold'
-                     : 'hover:text-[#c9d7d7] '
+                     ? 'text-[#9FADBD] font-bold'
+                     : 'hover:text-[#9FADBD] '
                }
                onClick={() => handleClearFilteredItems('')}
             >
@@ -171,8 +190,8 @@ const LinkLists = () => {
                to="/schedule"
                className={({ isActive }) =>
                   isActive
-                     ? 'text-[#c9d7d7] font-bold'
-                     : 'hover:text-[#c9d7d7] '
+                     ? 'text-[#9FADBD] font-bold'
+                     : 'hover:text-[#9FADBD] '
                }
                onClick={() => handleClearFilteredItems('')}
             >

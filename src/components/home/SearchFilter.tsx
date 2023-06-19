@@ -58,7 +58,7 @@ const SearchFilter = ({
             setIsFilterHidden={setIsFilterHidden}
          />
          {resolutionWidth > 768 || isFilterHidden ? (
-            <div className="flex flex-row justify-between gap-x-4 w-full overflow-x-auto sm:overflow-visible">
+            <div className="flex flex-row justify-between gap-x-4 w-full snap-x snap-mandatory overflow-x-auto sm:overflow-visible">
                <FilterComponent
                   filterName="Genre"
                   filterValue={filteredGenre}
@@ -102,7 +102,7 @@ const SearchBar = ({
    return (
       <div className="flex md:flex-col items-center text-[#676c75] font-semibold gap-y-2 gap-x-4 w-full md:w-auto ">
          <div className="space-y-0 md:space-y-2 w-full ">
-            <h1 className="hidden md:block text-[#fff]">Search</h1>
+            <h1 className="hidden md:block text-[#9FADBD]">Search</h1>
             <div className="flex justify-between bg-[#14181d] py-3 md:py-2 px-4 gap-x-4 rounded-md w-full">
                <div className="flex items-center text-sm gap-x-4 md:gap-x-2 w-full">
                   <Icon

@@ -68,8 +68,8 @@ const FilterComponent = ({
       };
    });
    return (
-      <div className="flex flex-col font-semibold gap-y-2 w-full">
-         <h1 className="">{filterName}</h1>
+      <div className="flex flex-col font-semibold gap-y-2 snap-start w-full">
+         <h1 className="text-[#9FADBD]">{filterName}</h1>
          <motion.div
             ref={modalRef}
             className="relative font-semibold flex justify-between items-center cursor-pointer gap-x-2 bg-[#14181d] text-[#676c75] py-2 px-4 rounded-md w-[170px] sm:w-full"
@@ -94,7 +94,7 @@ const FilterComponent = ({
                               ? 'max-h-[180px] h-[180px] sm:h-auto'
                               : ''
                         } 
-                        z-10 bg-[#14181d] origin-top sm:absolute left-0 sm:top-12 space-y-2  px-1 sm:px-2 py-2 scrollbar-thin scrollbar-thumb-[#A8A8A8] scrollbar-thumb-rounded-lg overflow-y-scroll overflow-x-hidden rounded-md w-[80%] sm:w-full  max-h-[500px]  
+                        z-10 bg-[#14181d] origin-top sm:absolute left-0 sm:top-12 space-y-2  p-2 scrollbar-thin scrollbar-thumb-[#A8A8A8] scrollbar-thumb-rounded-lg overflow-y-scroll overflow-x-hidden rounded-md w-[80%] sm:w-full  max-h-[500px]  
                         `}
                         initial="close"
                         animate="open"

@@ -1,5 +1,5 @@
 import Navigation from './components/Navigation';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useParams } from 'react-router-dom';
 import SearchFilter from './components/home/SearchFilter';
 import { Suspense, lazy, ChangeEvent, useState } from 'react';
 import useDebounce from './utilities/useDebounce';
@@ -22,12 +22,31 @@ const FilteredAnime = lazy(
    () => import('./pages/main-anime-sections/FilteredAnime')
 );
 const IndividualAnime = lazy(
-   () => import('./pages/main-anime-sections/IndividualAnime')
+   () => import('./pages/main-anime-sections/individual-anime/IndividualAnime')
 );
 const SearchTags = lazy(() => import('./components/home/SearchTags'));
+const IndividualOverview = lazy(
+   () =>
+      import('./pages/main-anime-sections/individual-anime/IndividualOverview')
+);
+const IndividualCharacters = lazy(
+   () =>
+      import(
+         './pages/main-anime-sections/individual-anime/IndividualCharacters'
+      )
+);
+const IndividualStaff = lazy(
+   () => import('./pages/main-anime-sections/individual-anime/IndividualStaff')
+);
+const IndividualStats = lazy(
+   () => import('./pages/main-anime-sections/individual-anime/IndividualStats')
+);
+const IndividualReviews = lazy(
+   () =>
+      import('./pages/main-anime-sections/individual-anime/IndividualReviews')
+);
 
-// Context
-function App() {
+const App = () => {
    // States
    const [filteredGenre, setFilteredGenre] = useState<FilterModel[]>([]); // stores the current filters for genre
    const [filteredYear, setFilteredYear] = useState<FilterModel[]>([]);
@@ -40,9 +59,13 @@ function App() {
 
    // Router Variables
    const { pathname } = useLocation();
-   const isAnimeDetailsRoute = pathname.match(/^\/anime\/\d+$/); // checks if route /anime followed by number
+   const isAnimeDetailsRoute = pathname.match(/^\/anime\/\d+\/[^/]+$/);
    const isAnimeRoute = pathname.match(/^\/anime(\/|$)/); // checks if route starts with /anime
+   const isMainRoute = pathname.match(
+      /^\/anime(?!.*(upcoming|popular|top)).*$/
+   );
    const isHome = pathname.match(/^\/$/);
+   // const { mal_id } = useParams();
 
    // Array | Objects | Hooks
    const debouncedSearchQuery = useDebounce(searchQuery, 500);
@@ -137,101 +160,167 @@ function App() {
                   }}
                >
                   <Navigation />
-                  <div className="grid place-items-center px-4 w-full ">
-                     <div className="py-8 max-w-4xl w-full overflow-x-hidden sm:overflow-x-visible">
-                        {isAnimeDetailsRoute === null &&
-                        (isAnimeRoute || isHome) !== null ? (
-                           <SearchFilter {...handleSearchFilterProps} />
-                        ) : null}
-                        {(totalFilterLength > 0 || searchQuery) && (
-                           <Suspense fallback={<div></div>}>
-                              <SearchTags
-                                 totalFilterLength={totalFilterLength}
+                  <div
+                     className={`${
+                        isMainRoute !== null ? 'px-0' : 'px-4'
+                     } grid place-items-center w-full`}
+                  >
+                     <div
+                        className={`
+                     ${
+                        isMainRoute !== null
+                           ? 'max-w-none'
+                           : 'py-8 px-0 max-w-4xl'
+                     } 
+                     overflow-x-hidden sm:overflow-x-visible w-full max-w-4xl`}
+                     >
+                        <div
+                           className={`
+                        py-0 w-full `}
+                        >
+                           {isHome || isMainRoute === null ? (
+                              <SearchFilter {...handleSearchFilterProps} />
+                           ) : null}
+                           {(totalFilterLength > 0 || searchQuery) && (
+                              <Suspense fallback={<div></div>}>
+                                 <SearchTags
+                                    totalFilterLength={totalFilterLength}
+                                 />
+                              </Suspense>
+                           )}
+                           <Routes>
+                              <Route
+                                 path="/"
+                                 element={
+                                    <Suspense fallback={<div></div>}>
+                                       {shouldRenderFilteredAnime ? (
+                                          <FilteredAnime />
+                                       ) : (
+                                          <Home />
+                                       )}
+                                    </Suspense>
+                                 }
                               />
-                           </Suspense>
-                        )}
-                        <Routes>
-                           <Route
-                              path="/"
-                              element={
-                                 <Suspense fallback={<div></div>}>
-                                    {shouldRenderFilteredAnime ? (
-                                       <FilteredAnime />
-                                    ) : (
-                                       <Home />
-                                    )}
-                                 </Suspense>
-                              }
-                           />
-                           <Route
-                              path="/anime/popular"
-                              element={
-                                 <Suspense fallback={<div></div>}>
-                                    {shouldRenderFilteredAnime ? (
-                                       <FilteredAnime />
-                                    ) : (
-                                       <PopularAnime />
-                                    )}
-                                 </Suspense>
-                              }
-                           />
-                           <Route
-                              path="/anime/upcoming"
-                              element={
-                                 <Suspense fallback={<div></div>}>
-                                    {shouldRenderFilteredAnime ? (
-                                       <FilteredAnime />
-                                    ) : (
-                                       <UpcomingAnime />
-                                    )}
-                                 </Suspense>
-                              }
-                           />
-                           <Route
-                              path="/anime/top"
-                              element={
-                                 <Suspense fallback={<div></div>}>
-                                    {shouldRenderFilteredAnime ? (
-                                       <FilteredAnime />
-                                    ) : (
-                                       <TopAnime />
-                                    )}
-                                 </Suspense>
-                              }
-                           />
-                           <Route
-                              path="/anime/:mal_id"
-                              element={
-                                 <Suspense fallback={<div>Loading...</div>}>
-                                    <IndividualAnime />
-                                 </Suspense>
-                              }
-                           />
-                           <Route
-                              path="/manga"
-                              element={
-                                 <div className="flex justify-center items-center py-8">
-                                    Not Available atm
-                                 </div>
-                              }
-                           />
-                           <Route
-                              path="/characters"
-                              element={
-                                 <div className="flex justify-center items-center py-8">
-                                    Not Available atm
-                                 </div>
-                              }
-                           />
-                           <Route
-                              path="/schedule"
-                              element={
-                                 <div className="flex justify-center items-center py-8">
-                                    Not Available atm
-                                 </div>
-                              }
-                           />
-                        </Routes>
+                              <Route
+                                 path="/anime/popular"
+                                 element={
+                                    <Suspense fallback={<div></div>}>
+                                       {shouldRenderFilteredAnime ? (
+                                          <FilteredAnime />
+                                       ) : (
+                                          <PopularAnime />
+                                       )}
+                                    </Suspense>
+                                 }
+                              />
+                              <Route
+                                 path="/anime/upcoming"
+                                 element={
+                                    <Suspense fallback={<div></div>}>
+                                       {shouldRenderFilteredAnime ? (
+                                          <FilteredAnime />
+                                       ) : (
+                                          <UpcomingAnime />
+                                       )}
+                                    </Suspense>
+                                 }
+                              />
+                              <Route
+                                 path="/anime/top"
+                                 element={
+                                    <Suspense fallback={<div></div>}>
+                                       {shouldRenderFilteredAnime ? (
+                                          <FilteredAnime />
+                                       ) : (
+                                          <TopAnime />
+                                       )}
+                                    </Suspense>
+                                 }
+                              />
+                              <Route
+                                 path="/anime/:mal_id/:anime_name/"
+                                 element={
+                                    <Suspense fallback={<div></div>}>
+                                       <IndividualAnime />
+                                    </Suspense>
+                                 }
+                              >
+                                 <Route
+                                    path="/anime/:mal_id/:anime_name/"
+                                    // path=""
+                                    element={
+                                       <Suspense fallback={<div></div>}>
+                                          <IndividualOverview />
+                                       </Suspense>
+                                    }
+                                 />
+                                 <Route
+                                    path="characters"
+                                    element={
+                                       <Suspense
+                                          fallback={<div>Loading...</div>}
+                                       >
+                                          <IndividualCharacters />
+                                       </Suspense>
+                                    }
+                                 />
+                                 <Route
+                                    path="staff"
+                                    element={
+                                       <Suspense
+                                          fallback={<div>Loading...</div>}
+                                       >
+                                          <IndividualStaff />
+                                       </Suspense>
+                                    }
+                                 />
+                                 <Route
+                                    path="stats"
+                                    element={
+                                       <Suspense
+                                          fallback={<div>Loading...</div>}
+                                       >
+                                          <IndividualStats />
+                                       </Suspense>
+                                    }
+                                 />
+                                 <Route
+                                    path="reviews"
+                                    element={
+                                       <Suspense
+                                          fallback={<div>Loading...</div>}
+                                       >
+                                          <IndividualReviews />
+                                       </Suspense>
+                                    }
+                                 />
+                              </Route>
+                              <Route
+                                 path="/manga"
+                                 element={
+                                    <div className="flex justify-center items-center py-8">
+                                       Not Available atm
+                                    </div>
+                                 }
+                              />
+                              <Route
+                                 path="/characters"
+                                 element={
+                                    <div className="flex justify-center items-center py-8">
+                                       Not Available atm
+                                    </div>
+                                 }
+                              />
+                              <Route
+                                 path="/schedule"
+                                 element={
+                                    <div className="flex justify-center items-center py-8">
+                                       Not Available atm
+                                    </div>
+                                 }
+                              />
+                           </Routes>
+                        </div>
                      </div>
                   </div>
                </SearchFilterContext.Provider>
@@ -239,6 +328,6 @@ function App() {
          </GlobalContext.Provider>
       </>
    );
-}
+};
 
 export default App;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AnimeRecoModel } from '../../interface/AnimeRecoModel';
+import { AnimeRecoModel } from '../../../interface/anime/AnimeRecoModel';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchedAnimeReco = async (mal_id: number) => {

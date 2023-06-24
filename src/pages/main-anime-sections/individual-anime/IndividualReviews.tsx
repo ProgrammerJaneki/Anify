@@ -3,8 +3,8 @@ import React, { useMemo, useState } from 'react';
 import { ReviewIcons } from '../../../assets/ReviewIcons';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
 import useCheckReso from '../../../utilities/useCheckReso';
-import useFetchedAnimeReviews from '../../../services/individual-anime/useFetchedAnimeReviews';
-import { AnimeReviewsModel } from '../../../interface/AnimeReviewsModel';
+import useFetchedAnimeReviews from '../../../services/anime/individual-anime/useFetchedAnimeReviews';
+import { AnimeReviewsModel } from '../../../interface/anime/AnimeReviewsModel';
 import { format } from 'fecha';
 
 // url checker, read more state, show more reactions state

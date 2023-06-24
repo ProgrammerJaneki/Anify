@@ -1,11 +1,11 @@
 import React, { useReducer } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAnimeData } from './IndividualAnime';
-import { AnimeCharactersModel } from '../../../interface/AnimeCharactersModel';
+import { AnimeCharactersModel } from '../../../interface/anime/AnimeCharactersModel';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ColorRing } from 'react-loader-spinner';
 import DropDown from '../../../components/anime-section/DropDown';
-import useFetchedAnimeCharacters from '../../../services/individual-anime/useFetchedAnimeCharacters';
+import useFetchedAnimeCharacters from '../../../services/anime/individual-anime/useFetchedAnimeCharacters';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface VoiceActorSectionModel {

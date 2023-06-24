@@ -1,5 +1,5 @@
 import { ChangeEvent, createContext } from 'react';
-import { FilterModel } from '../../interface/FilterModel';
+import { FilterModel } from '../../interface/anime/FilterModel';
 
 export interface SearchFilterContextType {
    handleSetSearchQuery: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -15,7 +15,6 @@ export interface SearchFilterContextType {
    setFilteredYear: React.Dispatch<React.SetStateAction<FilterModel[]>>;
    setFilteredGenre: React.Dispatch<React.SetStateAction<FilterModel[]>>;
    setFilteredStatus: React.Dispatch<React.SetStateAction<FilterModel[]>>;
-
 }
 
 export const SearchFilterContext =

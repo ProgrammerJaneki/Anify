@@ -1,5 +1,5 @@
 import React, { MouseEvent, useContext, useEffect, useRef } from 'react';
-import { FilterModel } from '../../interface/FilterModel';
+import { FilterModel } from '../../interface/anime/FilterModel';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { motion, AnimatePresence } from 'framer-motion';
 import {

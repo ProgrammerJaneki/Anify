@@ -3,7 +3,7 @@ import AnimeList from '../../components/anime-section/AnimeList';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import useCheckReso from '../../utilities/useCheckReso';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import getFetchTop from '../../services/getFetchTop';
+import getFetchTop from '../../services/anime/getFetchTop';
 import ErrorMessage from '../../utilities/ErrorMessage';
 
 const PopularAnime = () => {
@@ -15,18 +15,20 @@ const PopularAnime = () => {
       useInfiniteQuery({
          queryKey: ['topInfiniteList', contentLimit],
          queryFn: ({ pageParam = 1 }) => getFetchTop(contentLimit, pageParam),
-         cacheTime: 5000,
+         cacheTime: 0,
          getNextPageParam: (lastPage, allPages) => {
             return lastPage.length === 25 ? allPages.length + 1 : undefined;
          },
          refetchOnWindowFocus: false,
       });
+      
    const handleNextPage = () => {
       fetchNextPage();
    };
    useEffect(() => {
+      console.log('length: ', totalLength, 'pages: ', data?.pages)
       const TOTAL_LENGTH: number = data?.pages.reduce(
-         (accumulator, item) => accumulator + item.length,
+         (accumulator, item) => accumulator + item,
          0
       );
       setTotalLength(TOTAL_LENGTH);

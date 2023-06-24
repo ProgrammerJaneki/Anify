@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { FullAnimeDataModel } from '../../interface/FullAnimeDataModel';
+import { FullAnimeDataModel } from '../../../interface/anime/FullAnimeDataModel';
 import axios from 'axios';
 
 const fetchedFullAnimeData = async (mal_id: number) => {

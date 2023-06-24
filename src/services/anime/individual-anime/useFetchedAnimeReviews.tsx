@@ -1,4 +1,4 @@
-import { AnimeReviewsModel } from '../../interface/AnimeReviewsModel';
+import { AnimeReviewsModel } from '../../../interface/anime/AnimeReviewsModel';
 import axios from 'axios';
 import { useInfiniteQuery } from '@tanstack/react-query';
 

@@ -4,11 +4,11 @@ import { useLocation } from 'react-router-dom';
 import useCheckReso from '../../../utilities/useCheckReso';
 import MainSidebar from './MainSidebar';
 import { useOutletContext } from 'react-router-dom';
-import { FullAnimeDataModel } from '../../../interface/FullAnimeDataModel';
+import { FullAnimeDataModel } from '../../../interface/anime/FullAnimeDataModel';
 import { IndividualAnimeContext } from '../../../utilities/contexts/IndividualAnimeContext';
-import { AnimeCharactersModel } from '../../../interface/AnimeCharactersModel';
-import useFetchedFullAnimeInfo from '../../../services/individual-anime/useFetchedFullAnimeInfo';
-import useFetchedAnimePictures from '../../../services/individual-anime/useFetchedAnimePictures';
+import { AnimeCharactersModel } from '../../../interface/anime/AnimeCharactersModel';
+import useFetchedFullAnimeInfo from '../../../services/anime/individual-anime/useFetchedFullAnimeInfo';
+import useFetchedAnimePictures from '../../../services/anime/individual-anime/useFetchedAnimePictures';
 
 interface AnimeDataContextModel {
    mal_id: string | undefined;

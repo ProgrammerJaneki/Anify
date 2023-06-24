@@ -1,12 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useLocation } from 'react-router-dom';
 import useCheckReso from '../utilities/useCheckReso';
-import {
-   SearchFilterContext,
-   SearchFilterContextType,
-} from '../utilities/contexts/SearchFilterContext';
 import {
    autoUpdate,
    flip,
@@ -33,9 +29,6 @@ const Navigation: React.FC<NavigationProps> = ({
    const location = useLocation();
    const isIndividualRoute = /^\/anime\/\d+\/.*$/;
    const isNavBarTransparent = isIndividualRoute.test(location.pathname);
-   // const { handleClearFilteredItems } = useContext(
-   //    SearchFilterContext
-   // ) as SearchFilterContextType;
 
    useMotionValueEvent(scrollY, 'change', (latest) => {
       setScrollPosition(latest);
@@ -50,7 +43,6 @@ const Navigation: React.FC<NavigationProps> = ({
             initial="visible"
             animate={scrollLatest ? 'visible' : 'hidden'}
             variants={navbarVariants}
-            // Check transparency tomorrow
             className={` 
             ${isNavBarTransparent ? 'fixed ' : 'sticky'}
             ${
@@ -70,27 +62,30 @@ const Navigation: React.FC<NavigationProps> = ({
                   A<span className="text-[#59dfd6]">F</span>
                </NavLink>
                {resolutionWidth < 640 ? (
+                  // <button className="" onClick={handleMenuOpen}>
+                  //    <Icon icon="ion:menu" width="30" height="30" />
+                  // </button>
                   <MenuBar
                      handleClearFilteredItems={handleClearFilteredItems}
                   />
                ) : (
                   <>
                      <nav className="flex text-[#9FADBD] text-md font-medium ">
-                        <ul
+                        <div
                            className={`${
                               isNavBarTransparent
                                  ? scrollLatest && scrollPosition < 100
                                     ? 'text-[#cecece]'
                                     : 'text-[#676C75]'
                                  : 'text-[#40454f]'
-                           }  flex gap-x-6 font-semibold`}
+                           }  font-semibold `}
                         >
                            <LinkLists
                               handleClearFilteredItems={
                                  handleClearFilteredItems
                               }
                            />
-                        </ul>
+                        </div>
                      </nav>
                      <div>
                         <button className="hidden sm:block">
@@ -157,11 +152,8 @@ const MenuBar: React.FC<NavigationProps> = ({ handleClearFilteredItems }) => {
 };
 
 const LinkLists: React.FC<NavigationProps> = ({ handleClearFilteredItems }) => {
-   // const { handleClearFilteredItems } = useContext(
-   //    SearchFilterContext
-   // ) as SearchFilterContextType;
    return (
-      <>
+      <ul className="flex flex-col sm:flex-row gap-4 sm:gap-6">
          <li>
             <NavLink
                to="/"
@@ -212,7 +204,7 @@ const LinkLists: React.FC<NavigationProps> = ({ handleClearFilteredItems }) => {
                Schedule
             </NavLink>
          </li>
-      </>
+      </ul>
    );
 };
 

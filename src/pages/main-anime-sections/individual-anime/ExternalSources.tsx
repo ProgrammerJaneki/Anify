@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import tinycolor from 'tinycolor2';
-import { FullAnimeDataModel } from '../../../interface/FullAnimeDataModel';
+import { FullAnimeDataModel } from '../../../interface/anime/FullAnimeDataModel';
 import {
    ExternalIcons,
    StreamingIcons,

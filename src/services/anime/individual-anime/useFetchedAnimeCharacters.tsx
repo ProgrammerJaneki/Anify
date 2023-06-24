@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AnimeCharactersModel } from '../../interface/AnimeCharactersModel';
+import { AnimeCharactersModel } from '../../../interface/anime/AnimeCharactersModel';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchedAnimeCharacters = async (mal_id: number) => {

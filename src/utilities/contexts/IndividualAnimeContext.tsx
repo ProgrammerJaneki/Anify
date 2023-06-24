@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { FullAnimeDataModel } from '../../interface/FullAnimeDataModel';
+import { FullAnimeDataModel } from '../../interface/anime/FullAnimeDataModel';
 
 export interface IndividualAnimeContextType {
    mal_id: string | undefined;

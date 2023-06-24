@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { AnimeDataModel } from '../interface/AnimeDataModel';
+import { AnimeDataModel } from '../../interface/anime/AnimeDataModel';
 
-const fetchedTopData = async (contentLimit: number, page: number) => {
-   const baseUrl = `https://api.jikan.moe/v4/top/anime?limit=${contentLimit}&page=${page}`;
-   const listTopData = await axios.get(baseUrl);
-   const { data } = listTopData.data;
+const fetchedUpcomingData = async (contentLimit: number, page: number) => {
+   const baseUrl = `https://api.jikan.moe/v4/seasons/upcoming?limit=${contentLimit}&page=${page}`;
+   const listUpcomingData = await axios.get(baseUrl);
+   const { data } = listUpcomingData.data;
    const animeDataList = data.map((anime: AnimeDataModel) => {
       const animeData: AnimeDataModel = {
          mal_id: anime.mal_id,
@@ -24,8 +24,8 @@ const fetchedTopData = async (contentLimit: number, page: number) => {
    return animeDataList;
 };
 
-const getFetchTop = (contentLimit: number, page: number) => {
-   return fetchedTopData(contentLimit, page);
+const getFetchUpcoming = (contentLimit: number, page: number) => {
+   return fetchedUpcomingData(contentLimit, page);
 };
 
-export default getFetchTop;
+export default getFetchUpcoming;

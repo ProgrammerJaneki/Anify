@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import AnimeList from '../../components/anime-section/AnimeList';
-import getFetchUpcoming from '../../services/getFetchUpcoming';
+import getFetchUpcoming from '../../services/anime/getFetchUpcoming';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import useCheckReso from '../../utilities/useCheckReso';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -13,7 +13,7 @@ const UpcomingAnime = () => {
    const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
       queryKey: ['upcomingInfiniteList', contentLimit],
       queryFn: ({ pageParam = 1 }) => getFetchUpcoming(contentLimit, pageParam),
-      cacheTime: 5000,
+      cacheTime: 0,
       getNextPageParam: (lastPage, allPages) => {
          return lastPage.length === 25 ? allPages.length + 1 : undefined;
       },

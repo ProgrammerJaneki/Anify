@@ -1,8 +1,8 @@
 import Navigation from './components/Navigation';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Suspense, lazy, ChangeEvent, useState } from 'react';
 import useDebounce from './utilities/useDebounce';
-import { FilterModel } from './interface/FilterModel';
+import { FilterModel } from './interface/anime/FilterModel';
 import 'react-loading-skeleton/dist/skeleton.css';
 import useCheckReso from './utilities/useCheckReso';
 // Contexts

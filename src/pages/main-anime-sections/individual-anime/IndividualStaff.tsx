@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAnimeData } from './IndividualAnime';
-import useFetchedAnimeStaff from '../../../services/individual-anime/useFetchedAnimeStaff';
+import useFetchedAnimeStaff from '../../../services/anime/individual-anime/useFetchedAnimeStaff';
 import { NavLink, useLocation } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ColorRing } from 'react-loader-spinner';

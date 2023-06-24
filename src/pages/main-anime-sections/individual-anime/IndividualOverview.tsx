@@ -17,7 +17,6 @@ const IndividualOverview = () => {
    const { fullAnimeData, isFullInfoSuccess } = useContext(
       IndividualAnimeContext
    ) as IndividualAnimeContextType;
-   const thisBool = false;
    return (
       <div className="text-[#676c75] flex flex-col gap-y-6 sm:gap-y-8 w-full">
          {/* Relations */}

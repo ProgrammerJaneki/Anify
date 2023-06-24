@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAnimeData } from './IndividualAnime';
-import useFetchedAnimeReco from '../../../services/individual-anime/useFetchedAnimeReco';
-import { AnimeRecoModel } from '../../../interface/AnimeRecoModel';
+import useFetchedAnimeReco from '../../../services/anime/individual-anime/useFetchedAnimeReco';
+import { AnimeRecoModel } from '../../../interface/anime/AnimeRecoModel';
 import { NavLink } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 

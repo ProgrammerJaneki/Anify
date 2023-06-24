@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import FilterComponent from './FilterComponent';
-import useAnimeGenre from '../../services/useAnimeGenre';
-import useAnimeYear from '../../services/useAnimeYear';
-import useAnimeStatus from '../../services/useAnimeStatus';
-import { FilterModel } from '../../interface/FilterModel';
+import useAnimeGenre from '../../services/anime/useAnimeGenre';
+import useAnimeYear from '../../services/anime/useAnimeYear';
+import useAnimeStatus from '../../services/anime/useAnimeStatus';
+import { FilterModel } from '../../interface/anime/FilterModel';
 import useCheckReso from '../../utilities/useCheckReso';
 import {
    SearchFilterContext,

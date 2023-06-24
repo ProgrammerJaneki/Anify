@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import getFetchFilter from '../../services/getFetchFilter';
+import getFetchFilter from '../../services/anime/getFetchFilter';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import {
    SearchFilterContext,

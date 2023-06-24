@@ -11,7 +11,7 @@ import {
 import BarChart, {
    SampleDataModel,
 } from '../../../components/anime-section/BarChart';
-import useFetchedAnimeStats from '../../../services/individual-anime/useFetchedAnimeStats';
+import useFetchedAnimeStats from '../../../services/anime/individual-anime/useFetchedAnimeStats';
 import { NavLink, useLocation } from 'react-router-dom';
 
 interface SummaryStatsModel {

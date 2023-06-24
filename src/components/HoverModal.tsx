@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { AnimeDataModel } from '../interface/AnimeDataModel';
+import { AnimeDataModel } from '../interface/anime/AnimeDataModel';
 
 interface HoverModalModel {
    animeModalData: AnimeDataModel;

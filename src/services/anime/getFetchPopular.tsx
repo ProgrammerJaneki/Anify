@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AnimeDataModel } from '../interface/AnimeDataModel';
+import { AnimeDataModel } from '../../interface/anime/AnimeDataModel';
 
 const fetchedPopularData = async (contentLimit: number, page: number) => {
    const baseUrl = `https://api.jikan.moe/v4/seasons/now?limit=${contentLimit}&page=${page}`;

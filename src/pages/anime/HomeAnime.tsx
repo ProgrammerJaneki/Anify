@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { AnimeDataModel } from '../../interface/AnimeDataModel';
+import { AnimeDataModel } from '../../interface/anime/AnimeDataModel';
 import ErrorMessage from '../../utilities/ErrorMessage';
 import { NavLink } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import getFetchPopular from '../../services/getFetchPopular';
-import getFetchTop from '../../services/getFetchTop';
-import getFetchUpcoming from '../../services/getFetchUpcoming';
+import getFetchPopular from '../../services/anime/getFetchPopular';
+import getFetchTop from '../../services/anime/getFetchTop';
+import getFetchUpcoming from '../../services/anime/getFetchUpcoming';
 import AnimeCards from '../../components/anime-section/AnimeCards';
 import { AnimatePresence } from 'framer-motion';
 import SkeletonLoading from '../../utilities/SkeletonLoading';

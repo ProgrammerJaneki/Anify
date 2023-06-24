@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { AnimeDataModel } from '../../interface/AnimeDataModel';
+import { AnimeDataModel } from '../../interface/anime/AnimeDataModel';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import {
    useFloating,

@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { FilterModel } from '../../interface/FilterModel';
-import useAnimeSeason from '../../services/useAnimeSeason';
+import { FilterModel } from '../../interface/anime/FilterModel';
+import useAnimeSeason from '../../services/anime/useAnimeSeason';
 import {
    SearchFilterContext,
    SearchFilterContextType,

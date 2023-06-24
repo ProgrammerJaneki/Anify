@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AnimeDataModel } from '../interface/AnimeDataModel';
+import { AnimeDataModel } from '../../interface/anime/AnimeDataModel';
 
 // Filters
 

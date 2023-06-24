@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { MiniAnimeDataModel } from '../../../interface/MiniAnimeDataModel';
+import { MiniAnimeDataModel } from '../../../interface/anime/MiniAnimeDataModel';
 
 const fetchedMiniAnimeDetails = async (
    mal_id: number

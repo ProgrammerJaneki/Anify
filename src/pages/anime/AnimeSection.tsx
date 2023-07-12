@@ -54,9 +54,6 @@ const AnimeSection: React.FC = () => {
    const shouldRenderFilteredAnime =
       totalFilterLength > 0 || debouncedSearchQuery;
    const { pathname } = useLocation();
-   // const isMainRoute = pathname.match(
-   //    /^\/anime(?!.*(upcoming|popular|top)).*$/
-   // );
    const isMainRoute = /^\/anime(?!.*(upcoming|popular|top)).*$/.test(pathname);
    const isHome = pathname.match(/^\/$/);
 
@@ -193,7 +190,7 @@ const AnimeSection: React.FC = () => {
                            }
                         />
                      </Route>
-                    
+
                      <Route
                         path="/characters"
                         element={

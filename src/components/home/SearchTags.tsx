@@ -41,7 +41,7 @@ const SearchTags = ({ totalFilterLength }: SearchTagsModel) => {
    } = useContext(SearchFilterContext) as SearchFilterContextType;
    return (
       <div className=" flex gap-x-8 items-start justify-between mt-6">
-         <div className="group flex flex-wrap items-center gap-x-2 gap-y-4 text-xs w-full">
+         <div className="group text-[#ffffff] flex flex-wrap items-center gap-x-2 gap-y-4 text-xs w-full">
             <Icon
                className="text-[#676c75]"
                icon="mingcute:tag-2-fill"
